@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
@@ -32,9 +33,15 @@ const Navigation = () => {
             </Link>
           </div>
 
-          <Button className="hidden md:block bg-rehab-red hover:bg-rehab-red/90">
-            Boka tid
-          </Button>
+          <a 
+            href="https://www.bokadirekt.se/places/rehabkliniken-33257" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <Button className="hidden md:block bg-rehab-red hover:bg-rehab-red/90">
+              Boka tid
+            </Button>
+          </a>
 
           {/* Mobile menu button */}
           <button
@@ -77,9 +84,16 @@ const Navigation = () => {
               >
                 Kontakt
               </Link>
-              <Button className="w-full bg-rehab-red hover:bg-rehab-red/90">
-                Boka tid
-              </Button>
+              <a 
+                href="https://www.bokadirekt.se/places/rehabkliniken-33257" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full"
+              >
+                <Button className="w-full bg-rehab-red hover:bg-rehab-red/90">
+                  Boka tid
+                </Button>
+              </a>
             </div>
           </div>
         )}

@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 
 const Hero = () => {
@@ -12,9 +13,15 @@ const Hero = () => {
             Vi erbjuder professionell rehabilitering och fysioterapi med fokus på din hälsa och välmående. 
             Vårt erfarna team hjälper dig att återfå styrka och rörlighet.
           </p>
-          <Button className="bg-rehab-red hover:bg-rehab-red/90 text-white px-8 py-6 text-lg">
-            Boka tid nu
-          </Button>
+          <a 
+            href="https://www.bokadirekt.se/places/rehabkliniken-33257" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <Button className="bg-rehab-red hover:bg-rehab-red/90 text-white px-8 py-6 text-lg">
+              Boka tid nu
+            </Button>
+          </a>
         </div>
       </div>
     </div>
