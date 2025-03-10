@@ -13,8 +13,12 @@ const Navigation = () => {
     <nav className="bg-white shadow-md fixed w-full z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="text-2xl font-bold text-rehab-red">
-            Rehabkliniken
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/lovable-uploads/df82d401-46ef-47b8-acec-ea31c81e144b.png" 
+              alt="Rehabkliniken Logo" 
+              className="h-10"
+            />
           </Link>
 
           {/* Desktop Navigation */}
