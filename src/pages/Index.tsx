@@ -80,9 +80,13 @@ const Index = () => {
               </p>
             </div>
             
-            {/* Placeholder for Google Maps - To be implemented later */}
-            <div className="bg-rehab-gray-200 rounded-lg h-80 flex items-center justify-center">
-              <p className="text-rehab-gray-600">Karta kommer snart</p>
+            {/* Map image replacing placeholder */}
+            <div className="rounded-lg overflow-hidden border border-rehab-gray-300">
+              <img 
+                src="/lovable-uploads/c55e128d-3078-40a5-92ed-9d4e7cc76c4e.png" 
+                alt="Karta över Rehabkliniken" 
+                className="w-full h-auto"
+              />
             </div>
           </div>
         </div>
