@@ -33,10 +33,10 @@ const Tjanster = () => {
       <Navigation />
       
       {/* Services Banner */}
-      <div className="bg-rehab-gray-100 pt-24 pb-10">
+      <div className="bg-gray-100 pt-24 pb-10">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold text-rehab-black mb-4">Våra tjänster</h1>
-          <p className="text-lg text-rehab-gray-600">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Våra tjänster</h1>
+          <p className="text-lg text-gray-600">
             Vi erbjuder ett brett utbud av tjänster inom rehabilitering och fysioterapi.
           </p>
         </div>
@@ -56,16 +56,16 @@ const Tjanster = () => {
             ))}
           </div>
           
-          <div className="bg-rehab-gray-100 p-8 rounded-lg">
-            <h2 className="text-2xl font-bold text-rehab-black mb-4">Kostnadsinformation</h2>
-            <p className="text-rehab-gray-600 mb-4">
+          <div className="bg-gray-100 p-8 rounded-lg">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Kostnadsinformation</h2>
+            <p className="text-gray-600 mb-4">
               Vi har landstingsavtal enligt nationella taxan. Din patientavgift är samma som vid besök hos landstingets fysioterapeuter.
             </p>
             <a 
-              href="https://www.bokadirekt.se/places/rehabkliniken-33257" 
+              href="https://www.bokadirekt.se" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="bg-rehab-red hover:bg-rehab-red/90 text-white px-4 py-2 rounded inline-block"
+              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded inline-block"
             >
               Boka tid
             </a>

@@ -13,36 +13,32 @@ const Navigation = () => {
     <nav className="bg-white shadow-md fixed w-full z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="flex items-center">
-            <img 
-              src="/lovable-uploads/df82d401-46ef-47b8-acec-ea31c81e144b.png" 
-              alt="Rehabkliniken Logo" 
-              className="h-10"
-            />
+          <Link to="/" className="font-bold text-xl">
+            Rehabkliniken
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
-            <Link to="/" className="text-rehab-gray-700 hover:text-rehab-red transition-colors">
+            <Link to="/" className="text-gray-700 hover:text-red-600 transition-colors">
               Hem
             </Link>
-            <Link to="/tjanster" className="text-rehab-gray-700 hover:text-rehab-red transition-colors">
+            <Link to="/tjanster" className="text-gray-700 hover:text-red-600 transition-colors">
               Tjänster
             </Link>
-            <Link to="/om-oss" className="text-rehab-gray-700 hover:text-rehab-red transition-colors">
+            <Link to="/om-oss" className="text-gray-700 hover:text-red-600 transition-colors">
               Om oss
             </Link>
-            <Link to="/kontakt" className="text-rehab-gray-700 hover:text-rehab-red transition-colors">
+            <Link to="/kontakt" className="text-gray-700 hover:text-red-600 transition-colors">
               Kontakt
             </Link>
           </div>
 
           <a 
-            href="https://www.bokadirekt.se/places/rehabkliniken-33257" 
+            href="https://www.bokadirekt.se" 
             target="_blank" 
             rel="noopener noreferrer"
           >
-            <Button className="hidden md:block bg-rehab-red hover:bg-rehab-red/90">
+            <Button className="hidden md:block bg-red-600 hover:bg-red-700">
               Boka tid
             </Button>
           </a>
@@ -50,7 +46,7 @@ const Navigation = () => {
           {/* Mobile menu button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden text-rehab-gray-700 hover:text-rehab-red"
+            className="md:hidden text-gray-700 hover:text-red-600"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -62,39 +58,39 @@ const Navigation = () => {
             <div className="flex flex-col space-y-4">
               <Link
                 to="/"
-                className="text-rehab-gray-700 hover:text-rehab-red transition-colors"
+                className="text-gray-700 hover:text-red-600 transition-colors"
                 onClick={toggleMenu}
               >
                 Hem
               </Link>
               <Link
                 to="/tjanster"
-                className="text-rehab-gray-700 hover:text-rehab-red transition-colors"
+                className="text-gray-700 hover:text-red-600 transition-colors"
                 onClick={toggleMenu}
               >
                 Tjänster
               </Link>
               <Link
                 to="/om-oss"
-                className="text-rehab-gray-700 hover:text-rehab-red transition-colors"
+                className="text-gray-700 hover:text-red-600 transition-colors"
                 onClick={toggleMenu}
               >
                 Om oss
               </Link>
               <Link
                 to="/kontakt"
-                className="text-rehab-gray-700 hover:text-rehab-red transition-colors"
+                className="text-gray-700 hover:text-red-600 transition-colors"
                 onClick={toggleMenu}
               >
                 Kontakt
               </Link>
               <a 
-                href="https://www.bokadirekt.se/places/rehabkliniken-33257" 
+                href="https://www.bokadirekt.se" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-full"
               >
-                <Button className="w-full bg-rehab-red hover:bg-rehab-red/90">
+                <Button className="w-full bg-red-600 hover:bg-red-700">
                   Boka tid
                 </Button>
               </a>
