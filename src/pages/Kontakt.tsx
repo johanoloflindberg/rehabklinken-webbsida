@@ -86,10 +86,17 @@ const Kontakt = () => {
             {/* Map */}
             <div className="rounded-lg overflow-hidden border border-gray-300">
               <img 
-                src="/placeholder.svg" 
+                src="/lovable-uploads/6416c138-0743-4b37-9456-d6acdef164d4.png" 
                 alt="Karta över Rehabkliniken" 
                 className="w-full h-auto"
               />
+              <div className="bg-white p-4">
+                <h3 className="font-semibold text-gray-900 mb-1">Hitta till oss</h3>
+                <p className="text-gray-600 text-sm">
+                  Vi finns på Lantmäterigatan 2 med ingång från Parkvägen. 
+                  Parkering finns tillgänglig direkt utanför kliniken samt längs Lantmäterigatan.
+                </p>
+              </div>
             </div>
           </div>
         </div>
