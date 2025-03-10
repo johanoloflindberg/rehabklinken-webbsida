@@ -1,8 +1,8 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Logo from "./Logo";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +14,7 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="font-bold text-xl">
-            Rehabkliniken
+            <Logo />
           </Link>
 
           {/* Desktop Navigation */}
