@@ -1,3 +1,4 @@
+
 import { Activity, Heart, Users, Brain } from "lucide-react";
 import Hero from "@/components/Hero";
 import Navigation from "@/components/Navigation";
@@ -36,7 +37,7 @@ const Index = () => {
       <section className="py-16 bg-rehab-gray-100">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-rehab-black mb-12">
-            Våra Tjänster
+            Våra tjänster
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service) => (
