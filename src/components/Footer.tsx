@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { PhoneCall, Mail, Clock } from 'lucide-react';
 
@@ -13,7 +12,7 @@ const Footer = () => {
             <p className="mb-4">802 64 Gävle</p>
             <div className="flex items-center mb-2">
               <PhoneCall className="w-5 h-5 mr-2" />
-              <span>026-12 82 68</span>
+              <span>026-12 76 00</span>
             </div>
             <div className="flex items-center">
               <Mail className="w-5 h-5 mr-2" />
