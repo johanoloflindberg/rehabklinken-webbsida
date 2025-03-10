@@ -1,8 +1,8 @@
-
 import { Activity, Heart, Users, Brain } from "lucide-react";
 import Hero from "@/components/Hero";
 import Navigation from "@/components/Navigation";
 import ServiceCard from "@/components/ServiceCard";
+import Footer from "@/components/Footer";
 
 const services = [
   {
@@ -91,6 +91,8 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
+      <Footer />
     </div>
   );
 };
