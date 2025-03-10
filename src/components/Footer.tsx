@@ -17,7 +17,7 @@ const Footer = () => {
             </div>
             <div className="flex items-center">
               <Mail className="w-5 h-5 mr-2" />
-              <span>info@rehabkliniken.se</span>
+              <span>info@rehabklinikengavle.se</span>
             </div>
           </div>
           
