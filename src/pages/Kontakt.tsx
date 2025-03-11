@@ -70,16 +70,9 @@ const Kontakt = () => {
               <div className="mt-8">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Boka tid</h3>
                 <p className="text-gray-600 mb-4">
-                  Boka din tid enkelt online via Bokadirekt eller ring oss på 026-12 76 00.
+                  För att boka tid, vänligen ring oss på 026-12 76 00.
                 </p>
-                <a 
-                  href="https://www.bokadirekt.se" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded inline-block"
-                >
-                  Boka tid
-                </a>
+                {/* Booking button removed */}
               </div>
             </div>
             

@@ -34,15 +34,7 @@ const Navigation = () => {
             </Link>
           </div>
 
-          <a 
-            href="https://www.bokadirekt.se" 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            <Button className="hidden md:block bg-red-600 hover:bg-red-700">
-              Boka tid
-            </Button>
-          </a>
+          {/* Removed booking button */}
 
           {/* Mobile menu button */}
           <button
@@ -85,16 +77,7 @@ const Navigation = () => {
               >
                 Kontakt
               </Link>
-              <a 
-                href="https://www.bokadirekt.se" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-full"
-              >
-                <Button className="w-full bg-red-600 hover:bg-red-700">
-                  Boka tid
-                </Button>
-              </a>
+              {/* Removed booking button from mobile menu */}
             </div>
           </div>
         )}

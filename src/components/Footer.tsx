@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { PhoneCall, Mail, Clock } from 'lucide-react';
 
@@ -34,15 +35,8 @@ const Footer = () => {
           
           <div>
             <h3 className="text-xl font-semibold mb-4">Boka tid</h3>
-            <p className="mb-4">Boka din tid enkelt online via Bokadirekt.</p>
-            <a 
-              href="https://www.bokadirekt.se/places/rehabkliniken-33257" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-rehab-red hover:bg-rehab-red/90 text-white px-4 py-2 rounded inline-block"
-            >
-              Boka tid
-            </a>
+            <p className="mb-4">Kontakta oss via telefon för att boka en tid.</p>
+            {/* Booking button removed */}
           </div>
         </div>
         
