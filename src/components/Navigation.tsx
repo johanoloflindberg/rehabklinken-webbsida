@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
@@ -22,8 +23,8 @@ const Navigation = () => {
             <Link to="/" className="text-gray-700 hover:text-red-600 transition-colors">
               Hem
             </Link>
-            <Link to="/tjanster" className="text-gray-700 hover:text-red-600 transition-colors">
-              Tjänster
+            <Link to="/behandlingar" className="text-gray-700 hover:text-red-600 transition-colors">
+              Behandlingar
             </Link>
             <Link to="/om-oss" className="text-gray-700 hover:text-red-600 transition-colors">
               Om oss
@@ -64,11 +65,11 @@ const Navigation = () => {
                 Hem
               </Link>
               <Link
-                to="/tjanster"
+                to="/behandlingar"
                 className="text-gray-700 hover:text-red-600 transition-colors"
                 onClick={toggleMenu}
               >
-                Tjänster
+                Behandlingar
               </Link>
               <Link
                 to="/om-oss"

@@ -23,10 +23,10 @@ const Index = () => {
               Vårt erfarna team hjälper dig att återfå styrka och rörlighet genom individanpassade behandlingar.
             </p>
             <Link 
-              to="/tjanster" 
+              to="/behandlingar" 
               className="inline-flex items-center text-rehab-red hover:text-rehab-red/90 font-medium"
             >
-              Se våra tjänster <ArrowRight className="ml-2 h-4 w-4" />
+              Se våra behandlingar <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>
         </div>

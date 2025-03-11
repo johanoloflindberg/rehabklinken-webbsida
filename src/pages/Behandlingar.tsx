@@ -27,7 +27,7 @@ const services = [
   }
 ];
 
-const Tjanster = () => {
+const Behandlingar = () => {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
@@ -35,9 +35,9 @@ const Tjanster = () => {
       {/* Services Banner */}
       <div className="bg-gray-100 pt-24 pb-10">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Våra tjänster</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Våra behandlingar</h1>
           <p className="text-lg text-gray-600">
-            Vi erbjuder ett brett utbud av tjänster inom rehabilitering och fysioterapi.
+            Vi erbjuder ett brett utbud av behandlingar inom rehabilitering och fysioterapi.
           </p>
         </div>
       </div>
@@ -78,4 +78,4 @@ const Tjanster = () => {
   );
 };
 
-export default Tjanster;
+export default Behandlingar;
