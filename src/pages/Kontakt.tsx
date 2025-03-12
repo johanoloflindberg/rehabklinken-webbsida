@@ -1,6 +1,6 @@
 
 import React from "react";
-import { PhoneCall, Mail, Clock, MapPin } from "lucide-react";
+import { PhoneCall, Mail, MapPin } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -51,18 +51,6 @@ const Kontakt = () => {
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">E-post</h3>
                     <p className="text-gray-600">info@rehabklinikengavle.se</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <Clock className="w-5 h-5 text-red-600 mr-4 mt-1" />
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Öppettider</h3>
-                    <p className="text-gray-600">
-                      Måndag - Torsdag: 8:00 - 17:00<br />
-                      Fredag: 8:00 - 15:00<br />
-                      Lördag - Söndag: Stängt
-                    </p>
                   </div>
                 </div>
               </div>
