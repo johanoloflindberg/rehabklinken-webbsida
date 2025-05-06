@@ -42,7 +42,14 @@ const Kontakt = () => {
                   <PhoneCall className="w-6 h-6 text-rehab-red mr-5 mt-1" />
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-3">Telefon</h3>
-                    <p className="text-lg text-gray-600">026-12 76 00</p>
+                    <p className="text-lg text-gray-600">
+                      <a 
+                        href="tel:026127600" 
+                        className="hover:text-rehab-red transition-colors"
+                      >
+                        026-12 76 00
+                      </a>
+                    </p>
                   </div>
                 </div>
                 
@@ -50,7 +57,14 @@ const Kontakt = () => {
                   <Mail className="w-6 h-6 text-rehab-red mr-5 mt-1" />
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-3">E-post</h3>
-                    <p className="text-lg text-gray-600">info@rehabklinikengavle.se</p>
+                    <p className="text-lg text-gray-600">
+                      <a 
+                        href="mailto:reception@rekg.se" 
+                        className="hover:text-rehab-red transition-colors"
+                      >
+                        reception@rekg.se
+                      </a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -58,7 +72,12 @@ const Kontakt = () => {
               <div className="mt-12 bg-gray-50 p-8 rounded-lg shadow-md">
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Boka tid</h3>
                 <p className="text-lg text-gray-600 leading-relaxed">
-                  För att boka tid, vänligen ring oss på 026-12 76 00.
+                  För att boka tid, vänligen ring oss på <a 
+                    href="tel:026127600" 
+                    className="text-rehab-red hover:text-rehab-red/80 transition-colors"
+                  >
+                    026-12 76 00
+                  </a>.
                 </p>
               </div>
             </div>

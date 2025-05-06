@@ -13,11 +13,21 @@ const Footer = () => {
             <p className="mb-6 text-rehab-gray-200">802 64 Gävle</p>
             <div className="flex items-center mb-4">
               <PhoneCall className="w-5 h-5 mr-3 text-rehab-gray-300" />
-              <span>026-12 76 00</span>
+              <a 
+                href="tel:026127600" 
+                className="hover:text-rehab-gray-200 transition-colors"
+              >
+                026-12 76 00
+              </a>
             </div>
             <div className="flex items-center">
               <Mail className="w-5 h-5 mr-3 text-rehab-gray-300" />
-              <span>reception@rekg.se</span>
+              <a 
+                href="mailto:reception@rekg.se" 
+                className="hover:text-rehab-gray-200 transition-colors"
+              >
+                reception@rekg.se
+              </a>
             </div>
           </div>
           
