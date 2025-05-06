@@ -1,6 +1,8 @@
+
 import React from 'react';
-import { PhoneCall, Mail } from 'lucide-react';
+import { PhoneCall, Mail, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
 const Footer = () => {
   return <footer className="bg-rehab-gray-700 text-white py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,10 +44,23 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t border-rehab-gray-600 mt-12 pt-8 text-center text-rehab-gray-400">
-          <p>&copy; {new Date().getFullYear()} Rehabkliniken i Gävle. Alla rättigheter reserverade.</p>
+        <div className="border-t border-rehab-gray-600 mt-12 pt-8 text-center">
+          <p className="text-rehab-gray-400">&copy; {new Date().getFullYear()} Rehabkliniken i Gävle. Alla rättigheter reserverade.</p>
+          <p className="text-rehab-gray-500 text-sm mt-2">
+            Skapad av Webbyrån{' '}
+            <a 
+              href="https://webbab.se/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-white transition-colors inline-flex items-center"
+            >
+              WEBBAB
+              <ExternalLink className="w-3 h-3 ml-1" />
+            </a>
+          </p>
         </div>
       </div>
     </footer>;
 };
+
 export default Footer;
