@@ -1,11 +1,8 @@
-
 import React from 'react';
 import { PhoneCall, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
 const Footer = () => {
-  return (
-    <footer className="bg-rehab-gray-700 text-white py-16">
+  return <footer className="bg-rehab-gray-700 text-white py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
@@ -18,7 +15,7 @@ const Footer = () => {
             </div>
             <div className="flex items-center">
               <Mail className="w-5 h-5 mr-3 text-rehab-gray-300" />
-              <span>info@rehabklinikengavle.se</span>
+              <span>reception@rekg.se</span>
             </div>
           </div>
           
@@ -49,8 +46,6 @@ const Footer = () => {
           <p>&copy; {new Date().getFullYear()} Rehabkliniken i Gävle. Alla rättigheter reserverade.</p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
