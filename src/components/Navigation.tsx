@@ -14,11 +14,25 @@ const Navigation = () => {
     return location.pathname === path;
   };
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
     <nav className="bg-white shadow-sm fixed w-full z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
-          <Link to="/" className="flex items-center">
+          <Link 
+            to="/" 
+            className="flex items-center" 
+            onClick={handleLogoClick}
+          >
             <Logo />
           </Link>
 
