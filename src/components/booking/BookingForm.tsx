@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
+import { toast } from "@/components/ui/use-toast";
 import { sendEmail } from "@/utils/emailService";
 import { EmailData } from "@/types/email";
 
@@ -27,6 +28,7 @@ type BookingFormValues = z.infer<typeof bookingSchema>;
 const BookingForm = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'success' | 'error'>('idle');
   
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(bookingSchema),
@@ -42,8 +44,11 @@ const BookingForm = () => {
 
   const onSubmit = async (data: BookingFormValues) => {
     setIsSubmitting(true);
+    setSubmissionStatus('idle');
     
     try {
+      console.log("Formulärdata som skickas:", data);
+      
       const emailData: EmailData = {
         namn: data.namn,
         telefon: data.telefon,
@@ -52,13 +57,14 @@ const BookingForm = () => {
         besvarstid: data.besvarstid,
         meddelande: data.meddelande || "–",
         recipient: "reception@rekg.se",
-        subject: `Nytt meddelande från ${data.namn}`,
+        subject: `Bokningsförfrågan från ${data.namn} - Eva Helde`,
         replyTo: data.epost,
-        fromName: "Viktigt meddelande",
+        fromName: "Bokningsformulär",
       };
       
       await sendEmail(emailData);
       
+      setSubmissionStatus('success');
       toast({
         title: "Bokningsförfrågan skickad!",
         description: "Vi kommer att kontakta dig så snart som möjligt.",
@@ -67,6 +73,8 @@ const BookingForm = () => {
       form.reset();
     } catch (error) {
       console.error("Error sending email:", error);
+      setSubmissionStatus('error');
+      
       toast({
         title: "Det gick inte att skicka din förfrågan",
         description: "Vänligen försök igen eller kontakta oss via telefon.",
@@ -79,6 +87,18 @@ const BookingForm = () => {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+      {submissionStatus === 'success' && (
+        <div className="mb-6 p-4 bg-green-50 text-green-800 rounded-md">
+          Tack för din bokningsförfrågan! Vi kommer att kontakta dig så snart som möjligt.
+        </div>
+      )}
+      
+      {submissionStatus === 'error' && (
+        <div className="mb-6 p-4 bg-red-50 text-red-800 rounded-md">
+          Det uppstod ett fel när din förfrågan skulle skickas. Vänligen försök igen eller kontakta oss via telefon.
+        </div>
+      )}
+      
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField

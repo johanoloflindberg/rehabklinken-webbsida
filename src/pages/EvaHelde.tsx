@@ -25,13 +25,16 @@ const EvaHelde = () => {
           </div>
           
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Boka tid</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Kontaktuppgifter</h2>
             <ContactInfo />
           </div>
           
           {/* Booking Form */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-8">Boka tid hos Eva Helde</h2>
+            <p className="text-gray-600 mb-6">
+              Fyll i formuläret nedan för att boka en tid hos Eva Helde. Vi återkommer till dig så snart som möjligt för att bekräfta din bokning.
+            </p>
             <BookingForm />
           </div>
           

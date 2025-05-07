@@ -32,8 +32,9 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log(`Sending email to ${to} with subject "${subject}"`);
 
+    // Använd Resends standarddomän "onboarding@resend.dev" istället för en ovaliderad domän
     const emailResponse = await resend.emails.send({
-      from: `${from.name} <${from.email}>`,
+      from: `${from.name} <onboarding@resend.dev>`,
       to: [to],
       subject: subject,
       html: html,
