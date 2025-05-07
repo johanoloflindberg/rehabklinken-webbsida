@@ -3,9 +3,13 @@ import { EmailData, SMTPSettings } from "@/types/email";
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client - will use environment variables from Supabase integration
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+// Only create the client if the required environment variables are available
+const supabase = supabaseUrl && supabaseAnonKey 
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
 
 /**
  * Sends an email using Supabase Edge Functions
@@ -54,7 +58,7 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
     console.log("Skickar email via Supabase Edge Function:", data);
     
     // Development mode simulation
-    if (!supabaseUrl || !supabaseAnonKey) {
+    if (!supabase) {
       console.log("Supabase not configured, simulating email send");
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log("E-post simulerad som skickad till:", data.recipient);
