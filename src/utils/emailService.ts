@@ -49,6 +49,12 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
       throw new Error(`E-post kunde inte skickas: ${error.message}`);
     }
     
+    // Check for Resend free tier limitation
+    if (responseData?.error === "free_tier_limitation") {
+      console.warn("Resend Free Tier Limitation:", responseData.message);
+      throw new Error("E-postmeddelandet kunde inte skickas på grund av begränsningar i Resend. Vänligen kontakta administratören för att verifiera din domän eller uppgradera Resend-kontot.");
+    }
+    
     console.log("E-post skickad via Resend:", responseData);
     return Promise.resolve();
   } catch (error) {

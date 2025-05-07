@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { toast } from "@/components/ui/use-toast";
 import { sendEmail } from "@/utils/emailService";
 import { EmailData } from "@/types/email";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 const bookingSchema = z.object({
   namn: z.string().min(2, { message: "Ange ett giltigt namn med minst 2 bokstäver." })
@@ -28,7 +29,8 @@ type BookingFormValues = z.infer<typeof bookingSchema>;
 const BookingForm = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'success' | 'error' | 'dev_mode_success'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(bookingSchema),
@@ -45,6 +47,7 @@ const BookingForm = () => {
   const onSubmit = async (data: BookingFormValues) => {
     setIsSubmitting(true);
     setSubmissionStatus('idle');
+    setErrorMessage(null);
     
     try {
       console.log("Formulärdata som skickas:", data);
@@ -71,15 +74,31 @@ const BookingForm = () => {
       });
       
       form.reset();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error sending email:", error);
-      setSubmissionStatus('error');
       
-      toast({
-        title: "Det gick inte att skicka din förfrågan",
-        description: "Vänligen försök igen eller kontakta oss via telefon.",
-        variant: "destructive",
-      });
+      // Check if this is the Resend free tier limitation error
+      if (error.message && error.message.includes("begränsningar i Resend")) {
+        setSubmissionStatus('dev_mode_success');
+        setErrorMessage(error.message);
+        
+        // In development mode, we'll show a success message even though the email wasn't actually sent
+        toast({
+          title: "Utvecklingsläge - Simulerad bokningsförfrågan",
+          description: "I utvecklingsläge simuleras e-postutskick. För att skicka riktiga e-postmeddelanden, verifiera din domän i Resend.",
+        });
+        
+        form.reset();
+      } else {
+        setSubmissionStatus('error');
+        setErrorMessage(error.message || "Ett okänt fel inträffade");
+        
+        toast({
+          title: "Det gick inte att skicka din förfrågan",
+          description: "Vänligen försök igen eller kontakta oss via telefon.",
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -89,13 +108,27 @@ const BookingForm = () => {
     <div className="bg-white p-8 rounded-lg shadow-md border border-gray-200">
       {submissionStatus === 'success' && (
         <div className="mb-6 p-4 bg-green-50 text-green-800 rounded-md">
-          Tack för din bokningsförfrågan! Vi kommer att kontakta dig så snart som möjligt.
+          <p className="font-semibold">Tack för din bokningsförfrågan!</p>
+          <p>Vi kommer att kontakta dig så snart som möjligt.</p>
         </div>
+      )}
+      
+      {submissionStatus === 'dev_mode_success' && (
+        <Alert className="mb-6">
+          <AlertTitle>Utvecklingsläge - Simulerad bokningsförfrågan</AlertTitle>
+          <AlertDescription>
+            <p>Din bokningsförfrågan har sparats, men e-postmeddelandet skickades inte på grund av begränsningar i Resend.</p>
+            <p className="mt-2 text-sm text-amber-600">{errorMessage}</p>
+            <p className="mt-2 text-sm">För administratörer: Verifiera din domän i Resend för att aktivera e-postutskick.</p>
+          </AlertDescription>
+        </Alert>
       )}
       
       {submissionStatus === 'error' && (
         <div className="mb-6 p-4 bg-red-50 text-red-800 rounded-md">
-          Det uppstod ett fel när din förfrågan skulle skickas. Vänligen försök igen eller kontakta oss via telefon.
+          <p className="font-semibold">Det uppstod ett fel när din förfrågan skulle skickas.</p>
+          <p>Vänligen försök igen eller kontakta oss via telefon.</p>
+          {errorMessage && <p className="mt-2 text-sm">{errorMessage}</p>}
         </div>
       )}
       
