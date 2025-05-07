@@ -16,11 +16,18 @@ const Index = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-rehab-black mb-8">
-              Välkommen till Rehabkliniken i Gävle
+              Specialistkompetens inom rehabilitering
             </h2>
+            <p className="text-lg text-rehab-gray-600 mb-6 leading-relaxed">
+              Hos oss arbetar två legitimerade fysioterapeuter med lång klinisk erfarenhet och 
+              specialistkompetens inom idrottsmedicin, ortopedi och ortopedisk manuell terapi (OMT). 
+              På mottagningen finns även specialistläkare Eva Helde, som är specialist inom allmänmedicin och OMT.
+            </p>
+            <p className="text-lg text-rehab-gray-600 mb-6 leading-relaxed">
+              Specialistläkaren på kliniken undersöker och utreder smärtor i rörelse- och stödjeorganen.
+            </p>
             <p className="text-lg text-rehab-gray-600 mb-10 leading-relaxed">
-              Vi erbjuder professionell rehabilitering och fysioterapi med fokus på din hälsa och välmående. 
-              Vårt erfarna team hjälper dig att återfå styrka och rörlighet genom individanpassade behandlingar.
+              Rehabkliniken har ett samverkansavtal med Region Gävleborg, vilket innebär att du omfattas av högkostnadsskyddet.
             </p>
             <Link 
               to="/behandlingar" 
