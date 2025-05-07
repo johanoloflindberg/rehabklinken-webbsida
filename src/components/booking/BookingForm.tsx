@@ -6,7 +6,6 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/components/ui/use-toast";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { sendEmail } from "@/utils/emailService";
@@ -76,8 +75,9 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
       }
 
       try {
-        // For Petra's form we use a specific edge function
+        // For forms that specify an edge function name, use that specific edge function
         if (edgeFunctionName) {
+          console.log(`Using edge function: ${edgeFunctionName}`);
           const { data: responseData, error } = await supabase.functions.invoke(edgeFunctionName, {
             body: {
               to: recipient,
@@ -101,8 +101,12 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
             },
           });
           
-          if (error) throw new Error(error.message);
+          if (error) {
+            console.error("Edge function error:", error);
+            throw new Error(error.message);
+          }
           if (responseData?.error === "free_tier_limitation") {
+            console.warn("Free tier limitation:", responseData);
             throw new Error("E-postmeddelandet kunde inte skickas på grund av begränsningar i Resend. Vänligen kontakta administratören för att verifiera din domän eller uppgradera Resend-kontot.");
           }
           console.log("Email sent via custom edge function:", responseData);

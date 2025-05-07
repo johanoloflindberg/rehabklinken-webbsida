@@ -1,6 +1,6 @@
 
 import { EmailData } from "@/types/email";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/App";
 
 /**
  * Sends an email using Resend via Supabase Edge Functions
