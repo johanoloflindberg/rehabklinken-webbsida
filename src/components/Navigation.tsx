@@ -54,7 +54,7 @@ const Navigation = () => {
               <Link 
                 to="/behandlingar" 
                 className={`font-medium transition-colors inline-flex items-center ${
-                  isActive("/behandlingar") || isActive("/fysioterapi") || isActive("/vanliga-fragor")
+                  isActive("/behandlingar") || isActive("/fysioterapi") || isActive("/kostnad") || isActive("/vanliga-fragor")
                     ? "text-rehab-red" 
                     : "text-gray-700 hover:text-rehab-red"
                 }`}
@@ -75,6 +75,12 @@ const Navigation = () => {
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-rehab-red"
                   >
                     Fysioterapi
+                  </Link>
+                  <Link
+                    to="/kostnad"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-rehab-red"
+                  >
+                    Kostnad
                   </Link>
                   <Link
                     to="/vanliga-fragor"
@@ -191,6 +197,17 @@ const Navigation = () => {
                     onClick={toggleMenu}
                   >
                     Fysioterapi
+                  </Link>
+                  <Link
+                    to="/kostnad"
+                    className={`block text-base font-medium transition-colors ${
+                      isActive("/kostnad") 
+                        ? "text-rehab-red" 
+                        : "text-gray-600 hover:text-rehab-red"
+                    }`}
+                    onClick={toggleMenu}
+                  >
+                    Kostnad
                   </Link>
                   <Link
                     to="/vanliga-fragor"

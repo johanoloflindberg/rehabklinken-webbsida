@@ -49,6 +49,9 @@ const Footer = () => {
                 </Link>
               </div>
               <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+                <Link to="/kostnad" className="text-rehab-gray-200 hover:text-white transition-colors">
+                  Kostnad
+                </Link>
                 <Link to="/om-oss" className="text-rehab-gray-200 hover:text-white transition-colors">
                   Om oss
                 </Link>
