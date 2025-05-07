@@ -1,17 +1,23 @@
 
 import { EmailData, SMTPSettings } from "@/types/email";
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client - will use environment variables from Supabase integration
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 /**
- * Sends an email directly using a RESTful API endpoint
- * This avoids the need for Supabase Edge Functions
+ * Sends an email using Supabase Edge Functions
  */
 export const sendEmail = async (data: EmailData): Promise<void> => {
   try {
-    // SMTP-inställningar för direkt e-postsändning
+    // SMTP-inställningar for e-postsändning via Edge Function
     const smtpSettings: SMTPSettings = {
       primary: {
         username: "notiser@r6.se",
-        password: "!!Cixma2022!!",
+        // Note: Password will be stored as a secret in Supabase
+        password: "password_from_supabase_secret",
         server: "server10.serverdrift.com",
         port: 465,
         encryption: "ssl",
@@ -19,7 +25,8 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
       },
       fallback: {
         username: "notiser@automationer.se",
-        password: "!!Cixma2022!!",
+        // Note: Password will be stored as a secret in Supabase
+        password: "password_from_supabase_secret",
         server: "server10.serverdrift.com",
         port: 465,
         encryption: "ssl",
@@ -30,17 +37,6 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
         log_event: true
       }
     };
-
-    // URL till en server-side email-tjänst (ersätt med verklig URL)
-    const emailServiceUrl = 'https://api.din-email-tjänst.se/send';
-    
-    console.log("Skickar email med data:", data);
-    console.log("Använder SMTP-inställningar:", {
-      server: smtpSettings.primary.server,
-      port: smtpSettings.primary.port,
-      username: smtpSettings.primary.username,
-      // Lösenordet visas inte av säkerhetsskäl
-    });
     
     // Formatera email-data för mottagaren med en enkel HTML-formatering
     const emailBody = `
@@ -55,19 +51,19 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
       <p><i>Meddelandet är skickat via formulär på webbsidan. Svara gärna direkt till avsändarens e-postadress.</i></p>
     `;
 
-    // För utveckling/test: Simulera en lyckad sändning
-    // I produktionsmiljö skulle detta ersättas med ett riktigt API-anrop
-    // till en email-tjänst som kan hantera SMTP-sändning
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log("Skickar email via Supabase Edge Function:", data);
     
-    // I produktion skulle denna kod användas istället:
-    /*
-    const response = await fetch(emailServiceUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    // Development mode simulation
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.log("Supabase not configured, simulating email send");
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log("E-post simulerad som skickad till:", data.recipient);
+      return Promise.resolve();
+    }
+
+    // Call the Supabase Edge Function with properly structured data
+    const { data: responseData, error } = await supabase.functions.invoke('send-email', {
+      body: {
         to: data.recipient,
         subject: data.subject,
         html: emailBody,
@@ -77,16 +73,15 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
         },
         replyTo: data.replyTo,
         smtpSettings: smtpSettings
-      })
+      }
     });
     
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`E-post kunde inte skickas: ${errorData.message || response.statusText}`);
+    if (error) {
+      console.error("Supabase Edge Function error:", error);
+      throw new Error(`E-post kunde inte skickas: ${error.message}`);
     }
-    */
     
-    console.log("E-post simulerad som skickad till:", data.recipient);
+    console.log("E-post skickad via Supabase Edge Function:", responseData);
     return Promise.resolve();
   } catch (error) {
     console.error("Fel vid skickning av e-post:", error);
