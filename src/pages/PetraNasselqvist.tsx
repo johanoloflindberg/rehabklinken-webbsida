@@ -18,7 +18,7 @@ const PetraNasselqvist = () => {
       {/* Main Content */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-16">
+          <div className="max-w-3xl mx-auto mb-16">
             <p className="text-lg text-gray-600 leading-relaxed mb-6">
               Petra är specialistfysioterapeut i ortopedisk manuell terapi (OMT) med ett starkt intresse för rörelseanalys och människokroppens funktion. Hon har lång klinisk erfarenhet av att behandla besvär i rygg, nacke, axlar och idrottsskador.
             </p>
@@ -39,8 +39,8 @@ const PetraNasselqvist = () => {
           
           {/* Booking Form Section */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Boka tid</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Boka tid</h2>
+            <p className="text-gray-600 mb-6 max-w-2xl mx-auto text-center">
               Skicka en förfrågan via formuläret nedan eller maila direkt till:{" "}
               <a href="mailto:petra@rekg.se" className="font-bold text-rehab-red hover:underline">
                 petra@rekg.se
@@ -55,12 +55,14 @@ const PetraNasselqvist = () => {
           </div>
           
           {/* Cancellation Info */}
-          <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-            <h3 className="text-xl font-bold mb-4">Avbokning:</h3>
-            <p className="text-gray-600">
-              Om du behöver avboka eller flytta en tid, gör det minst 24 timmar i förväg.
-              Vid uteblivet besök eller för sen ombokning debiteras 400 kronor enligt Region Gävleborgs taxa.
-            </p>
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <h3 className="text-xl font-bold mb-4">Avbokning:</h3>
+              <p className="text-gray-600">
+                Om du behöver avboka eller flytta en tid, gör det minst 24 timmar i förväg.
+                Vid uteblivet besök eller för sen ombokning debiteras 400 kronor enligt Region Gävleborgs taxa.
+              </p>
+            </div>
           </div>
         </div>
       </section>

@@ -104,108 +104,110 @@ const BookingForm = ({ recipient, subject, fromName }: BookingFormProps) => {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        {errorMessage && (
-          <Alert variant="destructive" className="mb-4">
-            <AlertTitle>Ett fel uppstod</AlertTitle>
-            <AlertDescription>{errorMessage}</AlertDescription>
-          </Alert>
-        )}
-        
-        <FormField
-          control={form.control}
-          name="namn"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Namn *</FormLabel>
-              <FormControl>
-                <Input placeholder="Skriv ditt namn" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+    <div className="max-w-[600px] mx-auto w-full">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          {errorMessage && (
+            <Alert variant="destructive" className="mb-4">
+              <AlertTitle>Ett fel uppstod</AlertTitle>
+              <AlertDescription>{errorMessage}</AlertDescription>
+            </Alert>
           )}
-        />
+          
+          <FormField
+            control={form.control}
+            name="namn"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">Namn *</FormLabel>
+                <FormControl>
+                  <Input placeholder="Skriv ditt namn" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="telefon"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Telefon *</FormLabel>
-              <FormControl>
-                <Input placeholder="Skriv ditt telefonnummer" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="telefon"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">Telefon *</FormLabel>
+                <FormControl>
+                  <Input placeholder="Skriv ditt telefonnummer" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="epost"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>E-post *</FormLabel>
-              <FormControl>
-                <Input placeholder="Skriv din e-post" type="email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="epost"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">E-post *</FormLabel>
+                <FormControl>
+                  <Input placeholder="Skriv din e-post" type="email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="soker"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Vad söker du för? *</FormLabel>
-              <FormControl>
-                <Input placeholder="Beskriv dina besvär" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="soker"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">Vad söker du för? *</FormLabel>
+                <FormControl>
+                  <Input placeholder="Beskriv dina besvär" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="besvarstid"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Hur länge har du haft dina besvär? *</FormLabel>
-              <FormControl>
-                <Input placeholder="T.ex. 2 veckor, 3 månader, etc." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="besvarstid"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">Hur länge har du haft dina besvär? *</FormLabel>
+                <FormControl>
+                  <Input placeholder="T.ex. 2 veckor, 3 månader, etc." {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="meddelande"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Övrigt meddelande</FormLabel>
-              <FormControl>
-                <Textarea placeholder="Om du har något annat att meddela oss" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="meddelande"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">Övrigt meddelande</FormLabel>
+                <FormControl>
+                  <Textarea placeholder="Om du har något annat att meddela oss" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <Button
-          type="submit"
-          className="w-full bg-rehab-red hover:bg-rehab-red/90"
-          disabled={isLoading}
-        >
-          {isLoading ? "Skickar..." : "Skicka förfrågan"}
-        </Button>
-      </form>
-    </Form>
+          <Button
+            type="submit"
+            className="w-full bg-rehab-red hover:bg-rehab-red/90"
+            disabled={isLoading}
+          >
+            {isLoading ? "Skickar..." : "Skicka förfrågan"}
+          </Button>
+        </form>
+      </Form>
+    </div>
   );
 };
 

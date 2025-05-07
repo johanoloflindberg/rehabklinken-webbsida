@@ -18,7 +18,7 @@ const LindaEnghEriksson = () => {
       {/* Main Content */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-16">
+          <div className="max-w-3xl mx-auto mb-16">
             <p className="text-lg text-gray-600 leading-relaxed mb-6">
               Linda är fysioterapeut och sjukgymnast sedan 1999 med specialisering inom ortopedi och idrottsmedicin. 
               Hon har lång erfarenhet från ortopedisk specialistvård och driver sedan 2021 verksamhet på Rehabkliniken.
@@ -38,8 +38,8 @@ const LindaEnghEriksson = () => {
           </div>
           
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Boka tid</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Boka tid</h2>
+            <p className="text-gray-600 mb-6 max-w-2xl mx-auto text-center">
               Välkommen att kontakta Linda för tidsbokning.<br />
               <strong>Maila direkt till:</strong> <a href="mailto:linda@rekg.se" className="text-rehab-red hover:underline">linda@rekg.se</a><br />
               eller fyll i formuläret nedan.
@@ -52,7 +52,9 @@ const LindaEnghEriksson = () => {
           </div>
           
           {/* Cancellation Info */}
-          <CancellationInfo />
+          <div className="max-w-3xl mx-auto">
+            <CancellationInfo />
+          </div>
         </div>
       </section>
       
