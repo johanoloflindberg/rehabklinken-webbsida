@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Phone } from "lucide-react";
 import Navigation from "@/components/Navigation";
@@ -48,7 +47,7 @@ const EvaHelde = () => {
     setIsSubmitting(true);
     
     try {
-      const emailData = {
+      const emailData: EmailData = {
         namn: data.namn,
         telefon: data.telefon,
         epost: data.epost,
@@ -61,12 +60,7 @@ const EvaHelde = () => {
         fromName: "Viktigt meddelande",
       };
       
-      // In a real implementation, this would call a Supabase Edge Function
-      // that would handle the email sending securely
-      console.log("Email data to send:", emailData);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await sendEmail(emailData);
       
       toast({
         title: "Bokningsförfrågan skickad!",

@@ -1,5 +1,5 @@
 
-import { EmailData } from "@/types/email";
+import { EmailData, SMTPSettings } from "@/types/email";
 
 /**
  * Sends an email using Supabase Edge Functions
@@ -8,16 +8,43 @@ import { EmailData } from "@/types/email";
  */
 export const sendEmail = async (data: EmailData): Promise<void> => {
   try {
-    // This would be the actual implementation once Supabase is connected
-    // const { error } = await supabase.functions.invoke('send-email', {
-    //   body: data
-    // });
-    //
-    // if (error) throw new Error(error.message);
+    // Detta är en simulerad implementation för utveckling
+    // För verklig funktionalitet, anslut projektet till Supabase och implementera Edge Function
+    console.log("Email data to send:", data);
     
-    // For now, we're simulating a successful response
-    console.log("Email would be sent with data:", data);
+    // För att testa lokalt, skapa en temporär mock av en lyckad sändning
     await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Faktisk implementation med Supabase Edge Function skulle se ut så här:
+    // const { error } = await supabase.functions.invoke('send-email', {
+    //   body: {
+    //     emailData: data,
+    //     smtpSettings: {
+    //       primary: {
+    //         username: "notiser@r6.se",
+    //         password: "********", // Använd secrets i Supabase
+    //         server: "server10.serverdrift.com",
+    //         port: 465,
+    //         encryption: "ssl",
+    //         protocol: "smtp"
+    //       },
+    //       fallback: {
+    //         username: "notiser@automationer.se",
+    //         password: "********", // Använd secrets i Supabase
+    //         server: "server10.serverdrift.com",
+    //         port: 465,
+    //         encryption: "ssl",
+    //         protocol: "smtp"
+    //       },
+    //       on_failure: {
+    //         action: "use_fallback",
+    //         log_event: true
+    //       }
+    //     }
+    //   }
+    // });
+    // 
+    // if (error) throw new Error(error.message);
     
     return Promise.resolve();
   } catch (error) {
