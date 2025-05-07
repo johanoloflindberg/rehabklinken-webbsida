@@ -1,6 +1,6 @@
 
 import React from "react";
-import { PhoneCall, Mail, MapPin } from "lucide-react";
+import { PhoneCall, Mail, MapPin, SquareParking } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -95,6 +95,49 @@ const Kontakt = () => {
                   Vi finns på Lantmäterigatan 2 med ingång från Parkvägen. 
                   Parkering finns tillgänglig direkt utanför kliniken samt längs Lantmäterigatan.
                 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Parking Section */}
+      <section className="py-16 bg-rehab-gray-100">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-center mb-8">
+              <SquareParking className="w-8 h-8 text-rehab-red mr-4" />
+              <h2 className="text-3xl font-bold text-gray-900">Parkering vid Rehabkliniken</h2>
+            </div>
+            
+            <div className="prose prose-lg max-w-none text-rehab-gray-600">
+              <p>
+                För att underlätta ditt besök hos oss på Rehabkliniken har vi reserverat <strong>tre parkeringsplatser</strong> specifikt för våra besökare. 
+                Dessa parkeringsplatser är tydligt markerade med en <span className="text-rehab-red font-semibold">röd rektangel</span> på kartan och ligger i närheten av vår huvudentré för din bekvämlighet.
+              </p>
+              
+              <p>
+                För de som har särskilda behov finns även en <strong>handikapparkering</strong> tillgänglig, belägen närmast ingången och markerad med en <span className="text-blue-600 font-semibold">blå rektangel</span> på kartan.
+              </p>
+              
+              <p>
+                Om våra reserverade parkeringsplatser skulle vara upptagna vid ditt besök, finns det <strong>flera betalparkeringar</strong> i området. 
+                Dessa parkeringar är belägna på gångavstånd från kliniken.
+              </p>
+              
+              <p>
+                Vi rekommenderar att du anländer några minuter tidigare för att säkerställa att du hittar en lämplig parkeringsplats för att komma i tid till din bokade tid.
+              </p>
+            </div>
+            
+            <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
+              <div className="flex items-center mb-4">
+                <div className="w-4 h-4 bg-rehab-red rounded-sm mr-2"></div>
+                <span className="font-medium">Rehabklinikens besöksparkeringar</span>
+              </div>
+              <div className="flex items-center">
+                <div className="w-4 h-4 bg-blue-600 rounded-sm mr-2"></div>
+                <span className="font-medium">Handikapparkering</span>
               </div>
             </div>
           </div>
