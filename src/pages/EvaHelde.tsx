@@ -12,12 +12,14 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
+import { sendEmail } from "@/utils/emailService";
+import { EmailData } from "@/types/email";
 
 const bookingSchema = z.object({
   namn: z.string().min(2, { message: "Ange ett giltigt namn med minst 2 bokstäver." })
     .regex(/^[a-zA-ZåäöÅÄÖ\s]{2,}$/, { message: "Ange ett giltigt namn med minst 2 bokstäver." }),
   telefon: z.string().min(6, { message: "Ange ett giltigt telefonnummer." })
-    .regex(/^[\d\s\+]{6,}$/, { message: "Ange ett giltigt telefonnummer." }),
+    .regex(/^[\d\s\-\+]{6,}$/, { message: "Ange ett giltigt telefonnummer (siffror, mellanslag eller bindestreck tillåtna)" }),
   epost: z.string().email({ message: "Ange en giltig e-postadress." }),
   soker: z.string().max(200, { message: "Max 200 tecken." }),
   besvarstid: z.string().max(100, { message: "Max 100 tecken." }),
