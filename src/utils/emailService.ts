@@ -38,7 +38,7 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
         html: emailBody,
         from: {
           name: data.fromName,
-          email: "onboarding@resend.dev" // Använd Resend's standarddomän istället för r6.se
+          email: "skicka@skicka.rekg.se" // Use the consistent sender email
         },
         replyTo: data.replyTo
       }

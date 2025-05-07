@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -95,7 +94,7 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
               `,
               from: {
                 name: fromName,
-                email: "onboarding@resend.dev"  // Using Resend's default domain
+                email: "skicka@skicka.rekg.se"  // Use the consistent sender email
               },
               replyTo: emailData.epost
             },

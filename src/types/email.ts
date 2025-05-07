@@ -10,6 +10,7 @@ export interface EmailData {
   subject: string;
   replyTo: string;
   fromName: string;
+  fromEmail?: string; // Add optional field for explicit sender email
 }
 
 export interface SMTPSettings {

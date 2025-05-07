@@ -32,10 +32,9 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log(`Sending email to ${to} with subject "${subject}"`);
 
-    // Send with onboarding@resend.dev (Resend's verified sender)
-    // In free tier, this can only send to your verified email address
+    // Use skicka@skicka.rekg.se as the sender email
     const emailResponse = await resend.emails.send({
-      from: `${from.name} <onboarding@resend.dev>`,
+      from: `${from.name} <skicka@skicka.rekg.se>`,
       to: [to],
       subject: subject,
       html: html,
