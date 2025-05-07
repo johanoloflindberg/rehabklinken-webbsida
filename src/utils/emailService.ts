@@ -1,47 +1,22 @@
 
-import { EmailData, SMTPSettings } from "@/types/email";
-import { createClient } from '@supabase/supabase-js';
-
-// Initialize Supabase client - will use environment variables from Supabase integration
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-// Only create the client if the required environment variables are available
-const supabase = supabaseUrl && supabaseAnonKey 
-  ? createClient(supabaseUrl, supabaseAnonKey)
-  : null;
+import { EmailData } from "@/types/email";
+import { supabase } from "@/integrations/supabase/client";
 
 /**
- * Sends an email using Supabase Edge Functions
+ * Sends an email using Resend via Supabase Edge Functions
  */
 export const sendEmail = async (data: EmailData): Promise<void> => {
   try {
-    // SMTP-inställningar for e-postsändning via Edge Function
-    const smtpSettings: SMTPSettings = {
-      primary: {
-        username: "notiser@r6.se",
-        // Note: Password will be stored as a secret in Supabase
-        password: "password_from_supabase_secret",
-        server: "server10.serverdrift.com",
-        port: 465,
-        encryption: "ssl",
-        protocol: "smtp"
-      },
-      fallback: {
-        username: "notiser@automationer.se",
-        // Note: Password will be stored as a secret in Supabase
-        password: "password_from_supabase_secret",
-        server: "server10.serverdrift.com",
-        port: 465,
-        encryption: "ssl",
-        protocol: "smtp"
-      },
-      on_failure: {
-        action: "use_fallback",
-        log_event: true
-      }
-    };
+    console.log("Skickar email via Supabase Edge Function med Resend:", data);
     
+    // Development mode simulation
+    if (!supabase) {
+      console.log("Supabase not configured, simulating email send");
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log("E-post simulerad som skickad till:", data.recipient);
+      return Promise.resolve();
+    }
+
     // Formatera email-data för mottagaren med en enkel HTML-formatering
     const emailBody = `
       <h2>Nytt meddelande från ${data.namn}</h2>
@@ -55,28 +30,17 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
       <p><i>Meddelandet är skickat via formulär på webbsidan. Svara gärna direkt till avsändarens e-postadress.</i></p>
     `;
 
-    console.log("Skickar email via Supabase Edge Function:", data);
-    
-    // Development mode simulation
-    if (!supabase) {
-      console.log("Supabase not configured, simulating email send");
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log("E-post simulerad som skickad till:", data.recipient);
-      return Promise.resolve();
-    }
-
-    // Call the Supabase Edge Function with properly structured data
-    const { data: responseData, error } = await supabase.functions.invoke('send-email', {
+    // Call the Supabase Edge Function using Resend
+    const { data: responseData, error } = await supabase.functions.invoke('send-email-resend', {
       body: {
         to: data.recipient,
         subject: data.subject,
         html: emailBody,
         from: {
           name: data.fromName,
-          email: smtpSettings.primary.username
+          email: "notiser@r6.se" // Using default sender from the original code
         },
-        replyTo: data.replyTo,
-        smtpSettings: smtpSettings
+        replyTo: data.replyTo
       }
     });
     
@@ -85,7 +49,7 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
       throw new Error(`E-post kunde inte skickas: ${error.message}`);
     }
     
-    console.log("E-post skickad via Supabase Edge Function:", responseData);
+    console.log("E-post skickad via Resend:", responseData);
     return Promise.resolve();
   } catch (error) {
     console.error("Fel vid skickning av e-post:", error);
