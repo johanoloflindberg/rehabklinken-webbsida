@@ -1,5 +1,7 @@
 
 import { EmailData } from "@/types/email";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 /**
  * Sends an email using the Supabase Edge Function that forwards to Resend API
@@ -21,6 +23,12 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
       <p><i>Meddelandet är skickat via formulär på webbsidan. Svara gärna direkt till avsändarens e-postadress.</i></p>
     `;
 
+    // Determine form origin to log it in the function
+    let formOrigin = "unknown";
+    if (data.recipient === "reception@rekg.se") formOrigin = "Eva Helde page";
+    else if (data.recipient === "petra@rekg.se") formOrigin = "Petra Nässelqvist page";
+    else if (data.recipient === "linda@rekg.se") formOrigin = "Linda Engh Eriksson page";
+
     // Prepare the payload for the Edge Function
     const payload = {
       to: data.recipient,
@@ -30,28 +38,31 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
         name: data.fromName,
         email: "skicka@skicka.rekg.se" 
       },
-      replyTo: data.epost
+      replyTo: data.epost,
+      formOrigin: formOrigin
     };
 
     console.log("Preparing to send email payload:", payload);
 
-    // Use a proxy to send emails via a serverless function
-    // This avoids CORS issues with direct API calls from the browser
     try {
-      // Create a mockup successful response for testing purposes
-      // In a production environment, this would be replaced with an actual API call to your backend
-      // This allows us to test the UI flow without depending on the Edge Functions
-      
-      console.log("Simulating email sending in development environment");
-      
-      // Simulate a successful response after a short delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // If we're in a development environment or don't have proper access to the Edge Functions,
-      // we'll just log the email content and simulate success
-      console.log("Email would be sent with following content:", emailHtml);
-      console.log("Email sent successfully (simulated) to:", data.recipient);
-      
+      // Call the Supabase Edge Function
+      const { data: responseData, error } = await supabase.functions.invoke('send-contact-notification', {
+        body: payload,
+      });
+
+      // Handle potential errors from the Edge Function
+      if (error) {
+        console.error("Edge function error:", error);
+        throw new Error(`Edge function error: ${error.message || 'Unknown error'}`);
+      }
+
+      // Handle application-level errors returned from the Edge Function
+      if (responseData && responseData.error) {
+        console.error("Application error:", responseData);
+        throw new Error(`Application error: ${responseData.message || responseData.error}`);
+      }
+
+      console.log("Email sent successfully:", responseData);
       return Promise.resolve();
     } catch (fetchError) {
       console.error("Email sending operation failed:", fetchError);
