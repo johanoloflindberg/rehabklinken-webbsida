@@ -11,7 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const bookingSchema = z.object({
   namn: z.string().min(2, { message: "Ange ett giltigt namn med minst 2 bokstäver." })
@@ -46,8 +46,24 @@ const EvaHelde = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulate form submission
-      console.log("Form submitted:", data);
+      const emailData = {
+        namn: data.namn,
+        telefon: data.telefon,
+        epost: data.epost,
+        soker: data.soker,
+        besvarstid: data.besvarstid,
+        meddelande: data.meddelande || "–",
+        recipient: "reception@rekg.se",
+        subject: `Nytt meddelande från ${data.namn}`,
+        replyTo: data.epost,
+        fromName: "Viktigt meddelande",
+      };
+      
+      // In a real implementation, this would call a Supabase Edge Function
+      // that would handle the email sending securely
+      console.log("Email data to send:", emailData);
+      
+      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast({
@@ -57,6 +73,7 @@ const EvaHelde = () => {
       
       form.reset();
     } catch (error) {
+      console.error("Error sending email:", error);
       toast({
         title: "Det gick inte att skicka din förfrågan",
         description: "Vänligen försök igen eller kontakta oss via telefon.",
