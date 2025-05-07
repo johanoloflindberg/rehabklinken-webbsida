@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +17,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { supabase } from "@/App";
 
 const formSchema = z.object({
   namn: z.string().min(2, { message: "Ange ett giltigt namn med minst 2 bokstäver." }),
@@ -68,84 +66,37 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
         fromName: fromName,
       };
 
-      // Check if development mode (no Supabase)
-      if (!supabase) {
-        console.log("DEV MODE: would send email with data:", emailData);
-        return new Promise<void>((resolve) => setTimeout(resolve, 1000));
+      // Simulate email sending (Supabase removed)
+      console.log("SIMULATION MODE: would send email with data:", emailData);
+      
+      // Replacing edge function logic with local simulation
+      if (edgeFunctionName) {
+        console.log(`Edge function ${edgeFunctionName} would have been called (now removed)`);
+        
+        // Format email content (for logging purposes only)
+        const emailHtml = `
+          <h2>Nytt meddelande från ${emailData.namn}</h2>
+          <p><strong>Namn:</strong> ${emailData.namn}</p>
+          <p><strong>Telefon:</strong> ${emailData.telefon}</p>
+          <p><strong>E-post:</strong> ${emailData.epost}</p>
+          <p><strong>Vad söker patienten för?</strong><br>${emailData.soker}</p>
+          <p><strong>Hur länge har patienten haft besvären?</strong><br>${emailData.besvarstid}</p>
+          <p><strong>Övrigt meddelande:</strong><br>${emailData.meddelande || "–"}</p>
+          <hr>
+          <p><i>Meddelandet är skickat via formulär på webbsidan. Svara gärna direkt till avsändarens e-postadress.</i></p>
+        `;
+        
+        console.log("Email content would have been:", emailHtml);
       }
 
-      try {
-        // For forms that specify an edge function name, use that specific edge function
-        if (edgeFunctionName) {
-          console.log(`Using edge function: ${edgeFunctionName}`);
-          
-          // Format email content for the edge function
-          const emailHtml = `
-            <h2>Nytt meddelande från ${emailData.namn}</h2>
-            <p><strong>Namn:</strong> ${emailData.namn}</p>
-            <p><strong>Telefon:</strong> ${emailData.telefon}</p>
-            <p><strong>E-post:</strong> ${emailData.epost}</p>
-            <p><strong>Vad söker patienten för?</strong><br>${emailData.soker}</p>
-            <p><strong>Hur länge har patienten haft besvären?</strong><br>${emailData.besvarstid}</p>
-            <p><strong>Övrigt meddelande:</strong><br>${emailData.meddelande || "–"}</p>
-            <hr>
-            <p><i>Meddelandet är skickat via formulär på webbsidan. Svara gärna direkt till avsändarens e-postadress.</i></p>
-          `;
-          
-          const { data: responseData, error } = await supabase.functions.invoke(edgeFunctionName, {
-            body: {
-              to: recipient,
-              subject: subject,
-              html: emailHtml,
-              from: {
-                name: fromName,
-                email: "skicka@skicka.rekg.se"  // Always use this consistent sender email
-              },
-              replyTo: emailData.epost
-            },
-          });
-          
-          if (error) {
-            console.error("Edge function error:", error);
-            throw new Error(`Error: ${error.message}`);
-          }
-          
-          // Check for specific errors returned by the edge function
-          if (responseData?.error) {
-            console.error("Email sending error:", responseData);
-            
-            if (responseData.error === "free_tier_limitation") {
-              throw new Error("E-postmeddelandet kunde inte skickas på grund av begränsningar i Resend. Vänligen kontakta administratören för att verifiera din domän eller uppgradera Resend-kontot.");
-            }
-            
-            if (responseData.error === "domain_not_verified") {
-              throw new Error("E-postdomänen är inte verifierad. Vänligen kontakta administratören för att verifiera domänen på Resend.");
-            }
-            
-            throw new Error(responseData.message || "Ett fel uppstod när e-postmeddelandet skulle skickas.");
-          }
-          
-          if (!responseData?.id) {
-            console.error("No email ID returned from Resend:", responseData);
-            throw new Error("E-postleveransen kunde inte bekräftas.");
-          }
-          
-          console.log("Email sent successfully via custom edge function:", responseData);
-          return;
-        }
-
-        // Otherwise use the standard email service
-        return await sendEmail(emailData);
-      } catch (error: any) {
-        console.error("Error sending email:", error);
-        throw new Error(error.message || "Ett fel uppstod när meddelandet skulle skickas.");
-      }
+      // Use the standard email simulation service
+      return await sendEmail(emailData);
     },
     onSuccess: () => {
       form.reset();
       toast({
         title: "Tack för din förfrågan!",
-        description: "Ditt meddelande har skickats. Vi återkommer så snart vi kan.",
+        description: "Ditt meddelande har simulerats. OBS: E-post skickas inte (Supabase borttaget).",
       });
     },
     onError: (error: Error) => {
@@ -153,7 +104,7 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
       toast({
         variant: "destructive",
         title: "Något gick fel",
-        description: error.message || "Det gick inte att skicka meddelandet. Försök igen senare eller kontakta oss via telefon.",
+        description: "E-postfunktionaliteten har inaktiverats - Supabase-integrationen har tagits bort. Vänligen kontakta oss via telefon istället.",
       });
     },
   });
@@ -259,7 +210,7 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
           className="w-full bg-rehab-red hover:bg-rehab-red/90"
           disabled={isLoading}
         >
-          {isLoading ? "Skickar..." : "Skicka förfrågan"}
+          {isLoading ? "Simulerar..." : "Skicka förfrågan (simulering)"}
         </Button>
       </form>
     </Form>

@@ -11,14 +11,8 @@ import Kontakt from "./pages/Kontakt";
 import EvaHelde from "./pages/EvaHelde";
 import PetraNasselqvist from "./pages/PetraNasselqvist";
 import LindaEnghEriksson from "./pages/LindaEnghEriksson";
-import { createClient } from "@supabase/supabase-js";
 
-// Initialize Supabase
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-export const supabase = supabaseUrl && supabaseAnonKey 
-  ? createClient(supabaseUrl, supabaseAnonKey)
-  : null;
+// Supabase client has been removed
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,12 +24,7 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-  // Log Supabase initialization status (for development)
-  if (supabase) {
-    console.log("Supabase client initialized");
-  } else {
-    console.log("Supabase client not initialized - environment variables missing");
-  }
+  // Removed Supabase logging
 
   return (
     <QueryClientProvider client={queryClient}>
