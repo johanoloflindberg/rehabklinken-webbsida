@@ -7,27 +7,27 @@ import { supabase } from "@/App";
  */
 export const sendEmail = async (data: EmailData): Promise<void> => {
   try {
-    console.log("Skickar email via Supabase Edge Function med Resend:", data);
+    console.log("Sending email via Supabase Edge Function with Resend:", data);
     
     // Development mode simulation
     if (!supabase) {
       console.log("Supabase not configured, simulating email send");
       await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log("E-post simulerad som skickad till:", data.recipient);
+      console.log("Email simulated as sent to:", data.recipient);
       return Promise.resolve();
     }
 
-    // Formatera email-data för mottagaren med en enkel HTML-formatering
+    // Format email data for recipient with simple HTML formatting
     const emailBody = `
-      <h2>Nytt meddelande från ${data.namn}</h2>
-      <p><strong>Namn:</strong> ${data.namn}</p>
-      <p><strong>Telefon:</strong> ${data.telefon}</p>
-      <p><strong>E-post:</strong> ${data.epost}</p>
-      <p><strong>Vad söker patienten för?</strong><br>${data.soker}</p>
-      <p><strong>Hur länge har patienten haft besvären?</strong><br>${data.besvarstid}</p>
-      <p><strong>Övrigt meddelande:</strong><br>${data.meddelande || "–"}</p>
+      <h2>New message from ${data.namn}</h2>
+      <p><strong>Name:</strong> ${data.namn}</p>
+      <p><strong>Phone:</strong> ${data.telefon}</p>
+      <p><strong>Email:</strong> ${data.epost}</p>
+      <p><strong>What is the patient seeking help for?</strong><br>${data.soker}</p>
+      <p><strong>How long has the patient had these issues?</strong><br>${data.besvarstid}</p>
+      <p><strong>Additional message:</strong><br>${data.meddelande || "–"}</p>
       <hr>
-      <p><i>Meddelandet är skickat via formulär på webbsidan. Svara gärna direkt till avsändarens e-postadress.</i></p>
+      <p><i>This message was sent via the website form. Please reply directly to the sender's email.</i></p>
     `;
 
     // Call the Supabase Edge Function using Resend
@@ -40,13 +40,13 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
           name: data.fromName,
           email: "skicka@skicka.rekg.se" // Use the consistent sender email
         },
-        replyTo: data.replyTo
+        replyTo: data.epost // Set reply-to as the form submitter's email
       }
     });
     
     if (error) {
       console.error("Supabase Edge Function error:", error);
-      throw new Error(`E-post kunde inte skickas: ${error.message}`);
+      throw new Error(`Email could not be sent: ${error.message}`);
     }
     
     // Check for specific errors returned by the edge function
@@ -54,26 +54,26 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
       console.error("Email sending error:", responseData);
       
       if (responseData.error === "free_tier_limitation") {
-        throw new Error("E-postmeddelandet kunde inte skickas på grund av begränsningar i Resend. Vänligen kontakta administratören för att verifiera din domän eller uppgradera Resend-kontot.");
+        throw new Error("The email could not be sent due to Resend limitations. Please contact the administrator to verify your domain or upgrade your Resend account.");
       }
       
       if (responseData.error === "domain_not_verified") {
-        throw new Error("E-postdomänen är inte verifierad. Vänligen kontakta administratören för att verifiera domänen på Resend.");
+        throw new Error("The email domain is not verified. Please contact the administrator to verify the domain on Resend.");
       }
       
-      throw new Error(responseData.message || "Ett fel uppstod när e-postmeddelandet skulle skickas.");
+      throw new Error(responseData.message || "An error occurred while sending the email.");
     }
     
     // Verify we have a successful response from Resend
     if (!responseData?.id) {
       console.error("No email ID returned from Resend:", responseData);
-      throw new Error("E-postleveransen kunde inte bekräftas.");
+      throw new Error("Email delivery could not be confirmed.");
     }
     
-    console.log("E-post skickad via Resend:", responseData);
+    console.log("Email sent via Resend:", responseData);
     return Promise.resolve();
   } catch (error) {
-    console.error("Fel vid skickning av e-post:", error);
+    console.error("Error sending email:", error);
     return Promise.reject(error);
   }
 };

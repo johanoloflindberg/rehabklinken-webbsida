@@ -78,24 +78,28 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
         // For forms that specify an edge function name, use that specific edge function
         if (edgeFunctionName) {
           console.log(`Using edge function: ${edgeFunctionName}`);
+          
+          // Format email content for the edge function
+          const emailHtml = `
+            <h2>Nytt meddelande från ${emailData.namn}</h2>
+            <p><strong>Namn:</strong> ${emailData.namn}</p>
+            <p><strong>Telefon:</strong> ${emailData.telefon}</p>
+            <p><strong>E-post:</strong> ${emailData.epost}</p>
+            <p><strong>Vad söker patienten för?</strong><br>${emailData.soker}</p>
+            <p><strong>Hur länge har patienten haft besvären?</strong><br>${emailData.besvarstid}</p>
+            <p><strong>Övrigt meddelande:</strong><br>${emailData.meddelande || "–"}</p>
+            <hr>
+            <p><i>Meddelandet är skickat via formulär på webbsidan. Svara gärna direkt till avsändarens e-postadress.</i></p>
+          `;
+          
           const { data: responseData, error } = await supabase.functions.invoke(edgeFunctionName, {
             body: {
               to: recipient,
               subject: subject,
-              html: `
-                <h2>Nytt meddelande från ${emailData.namn}</h2>
-                <p><strong>Namn:</strong> ${emailData.namn}</p>
-                <p><strong>Telefon:</strong> ${emailData.telefon}</p>
-                <p><strong>E-post:</strong> ${emailData.epost}</p>
-                <p><strong>Vad söker patienten för?</strong><br>${emailData.soker}</p>
-                <p><strong>Hur länge har patienten haft besvären?</strong><br>${emailData.besvarstid}</p>
-                <p><strong>Övrigt meddelande:</strong><br>${emailData.meddelande || "–"}</p>
-                <hr>
-                <p><i>Meddelandet är skickat via formulär på webbsidan. Svara gärna direkt till avsändarens e-postadress.</i></p>
-              `,
+              html: emailHtml,
               from: {
                 name: fromName,
-                email: "skicka@skicka.rekg.se"  // Use the consistent sender email
+                email: "skicka@skicka.rekg.se"  // Always use this consistent sender email
               },
               replyTo: emailData.epost
             },
@@ -103,7 +107,7 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
           
           if (error) {
             console.error("Edge function error:", error);
-            throw new Error(error.message);
+            throw new Error(`Error: ${error.message}`);
           }
           
           // Check for specific errors returned by the edge function
