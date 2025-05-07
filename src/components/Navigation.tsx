@@ -57,16 +57,37 @@ const Navigation = () => {
             >
               Hem
             </Link>
-            <Link 
-              to="/behandlingar" 
-              className={`font-medium transition-colors ${
-                isActive("/behandlingar") 
-                  ? "text-rehab-red" 
-                  : "text-gray-700 hover:text-rehab-red"
-              }`}
-            >
-              Behandlingar
-            </Link>
+            
+            {/* Behandlingar dropdown */}
+            <div className="relative group">
+              <Link 
+                to="/behandlingar" 
+                className={`font-medium transition-colors inline-flex items-center ${
+                  isActive("/behandlingar") || isActive("/vanliga-fragor")
+                    ? "text-rehab-red" 
+                    : "text-gray-700 hover:text-rehab-red"
+                }`}
+              >
+                Behandlingar
+                <ChevronDown size={16} className="ml-1 group-hover:rotate-180 transition-transform duration-200" />
+              </Link>
+              <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-y-2 group-hover:translate-y-0">
+                <div className="py-2">
+                  <Link
+                    to="/behandlingar"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-rehab-red"
+                  >
+                    Våra behandlingar
+                  </Link>
+                  <Link
+                    to="/vanliga-fragor"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-rehab-red"
+                  >
+                    Vanliga frågor
+                  </Link>
+                </div>
+              </div>
+            </div>
             
             {/* Om oss dropdown */}
             <div className="relative group">
@@ -148,17 +169,34 @@ const Navigation = () => {
               >
                 Hem
               </Link>
-              <Link
-                to="/behandlingar"
-                className={`text-lg font-medium transition-colors ${
-                  isActive("/behandlingar") 
-                    ? "text-rehab-red" 
-                    : "text-gray-700 hover:text-rehab-red"
-                }`}
-                onClick={toggleMenu}
-              >
-                Behandlingar
-              </Link>
+              
+              {/* Mobile: Behandlingar section */}
+              <div>
+                <Link
+                  to="/behandlingar"
+                  className={`text-lg font-medium transition-colors ${
+                    isActive("/behandlingar") 
+                      ? "text-rehab-red" 
+                      : "text-gray-700 hover:text-rehab-red"
+                  }`}
+                  onClick={toggleMenu}
+                >
+                  Behandlingar
+                </Link>
+                <div className="mt-3 ml-4 border-l-2 border-gray-200 pl-4">
+                  <Link
+                    to="/vanliga-fragor"
+                    className={`block text-base font-medium transition-colors ${
+                      isActive("/vanliga-fragor") 
+                        ? "text-rehab-red" 
+                        : "text-gray-600 hover:text-rehab-red"
+                    }`}
+                    onClick={toggleMenu}
+                  >
+                    Vanliga frågor
+                  </Link>
+                </div>
+              </div>
               
               {/* Mobile: Om Oss section */}
               <div>
