@@ -49,10 +49,25 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
       throw new Error(`E-post kunde inte skickas: ${error.message}`);
     }
     
-    // Check for Resend free tier limitation
-    if (responseData?.error === "free_tier_limitation") {
-      console.warn("Resend Free Tier Limitation:", responseData.message);
-      throw new Error("E-postmeddelandet kunde inte skickas på grund av begränsningar i Resend. Vänligen kontakta administratören för att verifiera din domän eller uppgradera Resend-kontot.");
+    // Check for specific errors returned by the edge function
+    if (responseData?.error) {
+      console.error("Email sending error:", responseData);
+      
+      if (responseData.error === "free_tier_limitation") {
+        throw new Error("E-postmeddelandet kunde inte skickas på grund av begränsningar i Resend. Vänligen kontakta administratören för att verifiera din domän eller uppgradera Resend-kontot.");
+      }
+      
+      if (responseData.error === "domain_not_verified") {
+        throw new Error("E-postdomänen är inte verifierad. Vänligen kontakta administratören för att verifiera domänen på Resend.");
+      }
+      
+      throw new Error(responseData.message || "Ett fel uppstod när e-postmeddelandet skulle skickas.");
+    }
+    
+    // Verify we have a successful response from Resend
+    if (!responseData?.id) {
+      console.error("No email ID returned from Resend:", responseData);
+      throw new Error("E-postleveransen kunde inte bekräftas.");
     }
     
     console.log("E-post skickad via Resend:", responseData);

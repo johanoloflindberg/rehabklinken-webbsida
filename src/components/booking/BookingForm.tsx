@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -104,11 +105,28 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
             console.error("Edge function error:", error);
             throw new Error(error.message);
           }
-          if (responseData?.error === "free_tier_limitation") {
-            console.warn("Free tier limitation:", responseData);
-            throw new Error("E-postmeddelandet kunde inte skickas på grund av begränsningar i Resend. Vänligen kontakta administratören för att verifiera din domän eller uppgradera Resend-kontot.");
+          
+          // Check for specific errors returned by the edge function
+          if (responseData?.error) {
+            console.error("Email sending error:", responseData);
+            
+            if (responseData.error === "free_tier_limitation") {
+              throw new Error("E-postmeddelandet kunde inte skickas på grund av begränsningar i Resend. Vänligen kontakta administratören för att verifiera din domän eller uppgradera Resend-kontot.");
+            }
+            
+            if (responseData.error === "domain_not_verified") {
+              throw new Error("E-postdomänen är inte verifierad. Vänligen kontakta administratören för att verifiera domänen på Resend.");
+            }
+            
+            throw new Error(responseData.message || "Ett fel uppstod när e-postmeddelandet skulle skickas.");
           }
-          console.log("Email sent via custom edge function:", responseData);
+          
+          if (!responseData?.id) {
+            console.error("No email ID returned from Resend:", responseData);
+            throw new Error("E-postleveransen kunde inte bekräftas.");
+          }
+          
+          console.log("Email sent successfully via custom edge function:", responseData);
           return;
         }
 
