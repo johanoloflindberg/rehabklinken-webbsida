@@ -2,7 +2,7 @@
 import { EmailData } from "@/types/email";
 
 /**
- * Sends an email using Resend API directly
+ * Sends an email using the Supabase Edge Function that forwards to Resend API
  */
 export const sendEmail = async (data: EmailData): Promise<void> => {
   try {
@@ -21,36 +21,48 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
       <p><i>Meddelandet är skickat via formulär på webbsidan. Svara gärna direkt till avsändarens e-postadress.</i></p>
     `;
 
-    // Prepare the payload for the Resend API
+    // Prepare the payload for the Edge Function
     const payload = {
-      from: `${data.fromName} <skicka@skicka.rekg.se>`,
-      to: [data.recipient],
+      to: data.recipient,
       subject: data.subject,
       html: emailHtml,
-      reply_to: data.epost
+      from: {
+        name: data.fromName,
+        email: "skicka@skicka.rekg.se" // Using the correct sender email
+      },
+      replyTo: data.epost
     };
 
-    console.log("Calling Resend API with payload:", payload);
+    console.log("Calling Edge Function with payload:", payload);
 
-    // Use try-catch specifically for the fetch operation
+    // Send the email using fetch to the Supabase Edge Function
     try {
-      // Send the email using fetch to the Resend API
-      const response = await fetch("https://api.resend.com/emails", {
+      // Determine which edge function to call based on the recipient
+      let edgeFunctionUrl;
+      
+      // Use the send-eva-message-resend function for Eva Helde's emails
+      if (data.subject.includes("Eva Helde")) {
+        edgeFunctionUrl = "https://rehabkliniken-i-gavle.functions.supabase.co/send-eva-message-resend";
+      } else {
+        // Default to the general email function for other recipients
+        edgeFunctionUrl = "https://rehabkliniken-i-gavle.functions.supabase.co/send-email-resend";
+      }
+      
+      const response = await fetch(edgeFunctionUrl, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer re_XbMzSg8U_CHmBbcPb2ftJgDWu6ugCudZp` // Using the provided key
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(payload)
       });
 
       // Parse the response as JSON
       const responseData = await response.json();
-      console.log("Resend API response:", responseData);
+      console.log("Edge Function response:", responseData);
 
       // Check if the response was not successful
       if (!response.ok) {
-        throw new Error(`Failed to send email: ${responseData.message || response.statusText}`);
+        throw new Error(`Failed to send email: ${responseData.message || responseData.error || response.statusText}`);
       }
 
       console.log("Email sent successfully to:", data.recipient);
