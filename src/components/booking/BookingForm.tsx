@@ -31,10 +31,10 @@ export interface BookingFormProps {
   recipient: string;
   subject: string;
   fromName: string;
-  edgeFunctionName: string;
+  edgeFunctionName?: string; // Make this optional as we're not using it anymore
 }
 
-const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: BookingFormProps) => {
+const BookingForm = ({ recipient, subject, fromName }: BookingFormProps) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -65,38 +65,14 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
         replyTo: data.epost,
         fromName: fromName,
       };
-
-      // Simulate email sending (Supabase removed)
-      console.log("SIMULATION MODE: would send email with data:", emailData);
       
-      // Replacing edge function logic with local simulation
-      if (edgeFunctionName) {
-        console.log(`Edge function ${edgeFunctionName} would have been called (now removed)`);
-        
-        // Format email content (for logging purposes only)
-        const emailHtml = `
-          <h2>Nytt meddelande från ${emailData.namn}</h2>
-          <p><strong>Namn:</strong> ${emailData.namn}</p>
-          <p><strong>Telefon:</strong> ${emailData.telefon}</p>
-          <p><strong>E-post:</strong> ${emailData.epost}</p>
-          <p><strong>Vad söker patienten för?</strong><br>${emailData.soker}</p>
-          <p><strong>Hur länge har patienten haft besvären?</strong><br>${emailData.besvarstid}</p>
-          <p><strong>Övrigt meddelande:</strong><br>${emailData.meddelande || "–"}</p>
-          <hr>
-          <p><i>Meddelandet är skickat via formulär på webbsidan. Svara gärna direkt till avsändarens e-postadress.</i></p>
-        `;
-        
-        console.log("Email content would have been:", emailHtml);
-      }
-
-      // Use the standard email simulation service
       return await sendEmail(emailData);
     },
     onSuccess: () => {
       form.reset();
       toast({
         title: "Tack för din förfrågan!",
-        description: "Ditt meddelande har simulerats. OBS: E-post skickas inte (Supabase borttaget).",
+        description: "Ditt meddelande har skickats. Vi återkommer till dig så snart som möjligt.",
       });
     },
     onError: (error: Error) => {
@@ -104,7 +80,7 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
       toast({
         variant: "destructive",
         title: "Något gick fel",
-        description: "E-postfunktionaliteten har inaktiverats - Supabase-integrationen har tagits bort. Vänligen kontakta oss via telefon istället.",
+        description: "Det gick inte att skicka ditt meddelande. Vänligen försök igen senare eller kontakta oss via telefon.",
       });
     },
   });
@@ -210,7 +186,7 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
           className="w-full bg-rehab-red hover:bg-rehab-red/90"
           disabled={isLoading}
         >
-          {isLoading ? "Simulerar..." : "Skicka förfrågan (simulering)"}
+          {isLoading ? "Skickar..." : "Skicka förfrågan"}
         </Button>
       </form>
     </Form>

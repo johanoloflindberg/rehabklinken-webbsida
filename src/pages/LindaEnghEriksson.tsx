@@ -48,7 +48,6 @@ const LindaEnghEriksson = () => {
               recipient="linda@rekg.se" 
               subject="Bokningsförfrågan från hemsidan" 
               fromName="Rehabkliniken i Gävle"
-              edgeFunctionName="send-linda-message-resend"
             />
           </div>
           
