@@ -33,7 +33,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log(`Sending email to ${to} with subject "${subject}"`);
     console.log("Using FROM: ", from);
 
-    // Use skicka@skicka.rekg.se as the sender email
+    // Always use skicka@skicka.rekg.se as the sender email regardless of what was passed
     const emailResponse = await resend.emails.send({
       from: `${from.name} <skicka@skicka.rekg.se>`,
       to: [to],

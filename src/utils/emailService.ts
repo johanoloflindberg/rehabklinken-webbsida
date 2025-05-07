@@ -38,7 +38,7 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
         html: emailBody,
         from: {
           name: data.fromName,
-          email: "skicka@skicka.rekg.se" // Use the consistent sender email
+          email: "skicka@skicka.rekg.se" // Always use the consistent sender email
         },
         replyTo: data.epost // Set reply-to as the form submitter's email
       }
