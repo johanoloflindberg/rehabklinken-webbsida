@@ -2,7 +2,7 @@
 import { EmailData } from "@/types/email";
 
 /**
- * Sends an email using Resend API through Edge Functions
+ * Sends an email using Resend API directly
  */
 export const sendEmail = async (data: EmailData): Promise<void> => {
   try {
@@ -37,7 +37,7 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.RESEND_API_KEY}`
+        "Authorization": `Bearer re_XbMzSg8U_CHmBbcPb2ftJgDWu6ugCudZp` // Using the provided key
       },
       body: JSON.stringify(payload)
     });
