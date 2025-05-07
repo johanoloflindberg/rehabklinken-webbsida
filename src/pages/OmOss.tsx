@@ -31,7 +31,7 @@ const OmOss = () => {
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
                 Rehabkliniken är ett samarbete mellan Fysioterapeut Petra Nässelqvist, 
-                Fysioterapeut Linda Eng-Eriksson och Läkare Eva Helde.
+                Fysioterapeut Linda Engh Eriksson och Läkare Eva Helde.
               </p>
             </div>
           </div>
@@ -48,10 +48,10 @@ const OmOss = () => {
               </div>
               
               <div className="bg-gray-50 p-8 rounded-lg shadow-md">
-                <h3 className="text-2xl font-semibold text-gray-900 mb-4">Linda Eng-Eriksson</h3>
+                <h3 className="text-2xl font-semibold text-gray-900 mb-4">Linda Engh Eriksson</h3>
                 <p className="text-lg text-gray-700 font-medium mb-4">Fysioterapeut</p>
                 <p className="text-gray-600 leading-relaxed">
-                  Expert inom idrottsmedicin och rehabilitering efter sportskador.
+                  Specialist inom ortopedi och idrottsmedicin med över 20 års erfarenhet.
                 </p>
               </div>
               
