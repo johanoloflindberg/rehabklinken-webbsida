@@ -23,6 +23,27 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
       <p><i>Meddelandet är skickat via formulär på webbsidan. Svara gärna direkt till avsändarens e-postadress.</i></p>
     `;
 
+    // Format the plain text version of the email
+    const emailText = `
+      Nytt meddelande från ${data.namn}
+      
+      Namn: ${data.namn}
+      Telefon: ${data.telefon}
+      E-post: ${data.epost}
+      
+      Vad söker patienten för?
+      ${data.soker}
+      
+      Hur länge har patienten haft besvären?
+      ${data.besvarstid}
+      
+      Övrigt meddelande:
+      ${data.meddelande || "–"}
+      
+      --
+      Meddelandet är skickat via formulär på webbsidan. Svara gärna direkt till avsändarens e-postadress.
+    `;
+
     // Determine form origin to log it in the function
     let formOrigin = "unknown";
     if (data.recipient === "reception@rekg.se") formOrigin = "Eva Helde page";
@@ -34,6 +55,7 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
       to: data.recipient,
       subject: data.subject,
       html: emailHtml,
+      text: emailText, // Add the plain text version
       from: {
         name: data.fromName,
         email: "skicka@skicka.rekg.se" 

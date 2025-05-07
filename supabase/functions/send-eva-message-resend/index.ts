@@ -14,6 +14,7 @@ interface EmailRequest {
   to: string;
   subject: string;
   html: string;
+  text?: string; // Add optional text field
   from: {
     name: string;
     email: string;
@@ -28,7 +29,7 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { to, subject, html, from, replyTo }: EmailRequest = await req.json();
+    const { to, subject, html, text, from, replyTo }: EmailRequest = await req.json();
 
     console.log(`Sending email to ${to} with subject "${subject}"`);
     console.log("Using FROM: ", from);
@@ -39,6 +40,7 @@ const handler = async (req: Request): Promise<Response> => {
       to: [to],
       subject: subject,
       html: html,
+      text: text, // Include the plain text version if provided
       reply_to: replyTo
     });
 

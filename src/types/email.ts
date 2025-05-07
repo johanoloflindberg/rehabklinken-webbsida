@@ -11,6 +11,7 @@ export interface EmailData {
   replyTo: string;
   fromName: string;
   fromEmail?: string; // Add optional field for explicit sender email
+  text?: string; // Add optional field for plain text version
 }
 
 export interface SMTPSettings {

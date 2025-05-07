@@ -13,6 +13,7 @@ interface EmailRequest {
   to: string;
   subject: string;
   html: string;
+  text: string; // Add plain text field
   from: {
     name: string;
     email: string;
@@ -28,7 +29,7 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { to, subject, html, from, replyTo, formOrigin }: EmailRequest = await req.json();
+    const { to, subject, html, text, from, replyTo, formOrigin }: EmailRequest = await req.json();
 
     console.log(`Sending email from ${formOrigin || 'unknown form'} to ${to} with subject "${subject}"`);
 
@@ -38,6 +39,7 @@ const handler = async (req: Request): Promise<Response> => {
       to: [to],
       subject: subject,
       html: html,
+      text: text, // Include the plain text version
       reply_to: replyTo
     });
 
