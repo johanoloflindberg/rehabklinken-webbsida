@@ -1,8 +1,17 @@
 
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import Logo from "./Logo";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,16 +67,38 @@ const Navigation = () => {
             >
               Behandlingar
             </Link>
-            <Link 
-              to="/om-oss" 
-              className={`font-medium transition-colors ${
-                isActive("/om-oss") 
-                  ? "text-rehab-red" 
-                  : "text-gray-700 hover:text-rehab-red"
-              }`}
-            >
-              Om oss
-            </Link>
+            
+            {/* Om oss dropdown */}
+            <div className="relative group">
+              <Link 
+                to="/om-oss" 
+                className={`font-medium transition-colors inline-flex items-center ${
+                  isActive("/om-oss") || isActive("/eva-helde")
+                    ? "text-rehab-red" 
+                    : "text-gray-700 hover:text-rehab-red"
+                }`}
+              >
+                Om oss
+                <ChevronDown size={16} className="ml-1 group-hover:rotate-180 transition-transform duration-200" />
+              </Link>
+              <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-y-2 group-hover:translate-y-0">
+                <div className="py-2">
+                  <Link
+                    to="/om-oss"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-rehab-red"
+                  >
+                    Om kliniken
+                  </Link>
+                  <Link
+                    to="/eva-helde"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-rehab-red"
+                  >
+                    Läkare Eva Helde
+                  </Link>
+                </div>
+              </div>
+            </div>
+            
             <Link 
               to="/kontakt" 
               className={`font-medium transition-colors ${
@@ -116,17 +147,35 @@ const Navigation = () => {
               >
                 Behandlingar
               </Link>
-              <Link
-                to="/om-oss"
-                className={`text-lg font-medium transition-colors ${
-                  isActive("/om-oss") 
-                    ? "text-rehab-red" 
-                    : "text-gray-700 hover:text-rehab-red"
-                }`}
-                onClick={toggleMenu}
-              >
-                Om oss
-              </Link>
+              
+              {/* Mobile: Om Oss section */}
+              <div>
+                <Link
+                  to="/om-oss"
+                  className={`text-lg font-medium transition-colors ${
+                    isActive("/om-oss") 
+                      ? "text-rehab-red" 
+                      : "text-gray-700 hover:text-rehab-red"
+                  }`}
+                  onClick={toggleMenu}
+                >
+                  Om oss
+                </Link>
+                <div className="mt-3 ml-4 border-l-2 border-gray-200 pl-4">
+                  <Link
+                    to="/eva-helde"
+                    className={`block text-base font-medium transition-colors ${
+                      isActive("/eva-helde") 
+                        ? "text-rehab-red" 
+                        : "text-gray-600 hover:text-rehab-red"
+                    }`}
+                    onClick={toggleMenu}
+                  >
+                    Läkare Eva Helde
+                  </Link>
+                </div>
+              </div>
+              
               <Link
                 to="/kontakt"
                 className={`text-lg font-medium transition-colors ${

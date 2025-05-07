@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Behandlingar from "./pages/Behandlingar";
 import OmOss from "./pages/OmOss";
 import Kontakt from "./pages/Kontakt";
+import EvaHelde from "./pages/EvaHelde";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/behandlingar" element={<Behandlingar />} />
           <Route path="/om-oss" element={<OmOss />} />
           <Route path="/kontakt" element={<Kontakt />} />
+          <Route path="/eva-helde" element={<EvaHelde />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
