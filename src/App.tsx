@@ -13,6 +13,7 @@ import Kontakt from "./pages/Kontakt";
 import EvaHelde from "./pages/EvaHelde";
 import PetraNasselqvist from "./pages/PetraNasselqvist";
 import LindaEnghEriksson from "./pages/LindaEnghEriksson";
+import Personuppgiftspolicy from "./pages/Personuppgiftspolicy";
 
 // Supabase client has been removed
 
@@ -44,6 +45,7 @@ const App = () => {
             <Route path="/eva-helde" element={<EvaHelde />} />
             <Route path="/petra-nasselqvist" element={<PetraNasselqvist />} />
             <Route path="/linda-engh-eriksson" element={<LindaEnghEriksson />} />
+            <Route path="/personuppgiftspolicy" element={<Personuppgiftspolicy />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>

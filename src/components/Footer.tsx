@@ -52,6 +52,9 @@ const Footer = () => {
                 <Link to="/om-oss" className="text-rehab-gray-200 hover:text-white transition-colors">
                   Om oss
                 </Link>
+                <Link to="/personuppgiftspolicy" className="text-rehab-gray-200 hover:text-white transition-colors">
+                  Personuppgiftspolicy
+                </Link>
               </div>
             </div>
           </div>

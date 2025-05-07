@@ -2,6 +2,7 @@
 import React from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { Link } from "react-router-dom";
 
 const OmOss = () => {
   return (
@@ -77,6 +78,14 @@ const OmOss = () => {
                 Vår målsättning är att du som patient ska känna dig sedd, hörd och få den hjälp du behöver för 
                 att återgå till ett aktivt och smärtfritt liv.
               </p>
+            </div>
+          </div>
+          
+          <div className="mt-20 pt-12 border-t border-gray-200">
+            <div className="flex flex-wrap gap-6">
+              <Link to="/personuppgiftspolicy" className="text-rehab-red hover:text-rehab-red-dark transition-colors">
+                Personuppgiftspolicy
+              </Link>
             </div>
           </div>
         </div>
