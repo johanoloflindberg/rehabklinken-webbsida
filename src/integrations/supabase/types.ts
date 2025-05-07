@@ -9,114 +9,13 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      ical_events: {
-        Row: {
-          created_at: string | null
-          description: string | null
-          end_time: string | null
-          id: string
-          is_recurring: boolean | null
-          last_updated: string
-          location: string | null
-          organizer: string | null
-          source: string
-          start_time: string | null
-          title: string
-          uid: string
-        }
-        Insert: {
-          created_at?: string | null
-          description?: string | null
-          end_time?: string | null
-          id?: string
-          is_recurring?: boolean | null
-          last_updated?: string
-          location?: string | null
-          organizer?: string | null
-          source: string
-          start_time?: string | null
-          title: string
-          uid: string
-        }
-        Update: {
-          created_at?: string | null
-          description?: string | null
-          end_time?: string | null
-          id?: string
-          is_recurring?: boolean | null
-          last_updated?: string
-          location?: string | null
-          organizer?: string | null
-          source?: string
-          start_time?: string | null
-          title?: string
-          uid?: string
-        }
-        Relationships: []
-      }
-      ical_sync_logs: {
-        Row: {
-          created_at: string
-          error_message: string | null
-          events_added: number | null
-          events_processed: number | null
-          events_updated: number | null
-          id: string
-          source: string
-          status: string
-        }
-        Insert: {
-          created_at?: string
-          error_message?: string | null
-          events_added?: number | null
-          events_processed?: number | null
-          events_updated?: number | null
-          id?: string
-          source: string
-          status: string
-        }
-        Update: {
-          created_at?: string
-          error_message?: string | null
-          events_added?: number | null
-          events_processed?: number | null
-          events_updated?: number | null
-          id?: string
-          source?: string
-          status?: string
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      cleanup_old_ical_events: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      delete_old_ical_events: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      log_ical_sync: {
-        Args:
-          | Record<PropertyKey, never>
-          | {
-              source: string
-              status: string
-              events_processed?: number
-              events_added?: number
-              events_updated?: number
-              error_message?: string
-            }
-        Returns: string
-      }
-      sync_ical_events: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
