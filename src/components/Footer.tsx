@@ -44,6 +44,9 @@ const Footer = () => {
                 <Link to="/behandlingar" className="text-rehab-gray-200 hover:text-white transition-colors">
                   Behandlingar
                 </Link>
+                <Link to="/fysioterapi" className="text-rehab-gray-200 hover:text-white transition-colors">
+                  Fysioterapi
+                </Link>
               </div>
               <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                 <Link to="/om-oss" className="text-rehab-gray-200 hover:text-white transition-colors">

@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Behandlingar from "./pages/Behandlingar";
 import VanligaFragor from "./pages/VanligaFragor";
+import Fysioterapi from "./pages/Fysioterapi";
 import OmOss from "./pages/OmOss";
 import Kontakt from "./pages/Kontakt";
 import EvaHelde from "./pages/EvaHelde";
@@ -36,6 +37,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/behandlingar" element={<Behandlingar />} />
+            <Route path="/fysioterapi" element={<Fysioterapi />} />
             <Route path="/vanliga-fragor" element={<VanligaFragor />} />
             <Route path="/om-oss" element={<OmOss />} />
             <Route path="/kontakt" element={<Kontakt />} />

@@ -3,15 +3,6 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Logo from "./Logo";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,7 +54,7 @@ const Navigation = () => {
               <Link 
                 to="/behandlingar" 
                 className={`font-medium transition-colors inline-flex items-center ${
-                  isActive("/behandlingar") || isActive("/vanliga-fragor")
+                  isActive("/behandlingar") || isActive("/fysioterapi") || isActive("/vanliga-fragor")
                     ? "text-rehab-red" 
                     : "text-gray-700 hover:text-rehab-red"
                 }`}
@@ -78,6 +69,12 @@ const Navigation = () => {
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-rehab-red"
                   >
                     Våra behandlingar
+                  </Link>
+                  <Link
+                    to="/fysioterapi"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-rehab-red"
+                  >
+                    Fysioterapi
                   </Link>
                   <Link
                     to="/vanliga-fragor"
@@ -184,6 +181,17 @@ const Navigation = () => {
                   Behandlingar
                 </Link>
                 <div className="mt-3 ml-4 border-l-2 border-gray-200 pl-4">
+                  <Link
+                    to="/fysioterapi"
+                    className={`block text-base font-medium transition-colors ${
+                      isActive("/fysioterapi") 
+                        ? "text-rehab-red" 
+                        : "text-gray-600 hover:text-rehab-red"
+                    }`}
+                    onClick={toggleMenu}
+                  >
+                    Fysioterapi
+                  </Link>
                   <Link
                     to="/vanliga-fragor"
                     className={`block text-base font-medium transition-colors ${
