@@ -5,7 +5,7 @@ export interface EmailData {
   epost: string;
   soker: string;
   besvarstid: string;
-  meddelande: string;
+  meddelande?: string; // This can be optional since it's not required in the form
   recipient: string;
   subject: string;
   replyTo: string;

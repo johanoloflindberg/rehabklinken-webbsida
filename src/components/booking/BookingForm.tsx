@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -54,8 +55,14 @@ const BookingForm = ({ recipient, subject, fromName, edgeFunctionName }: Booking
 
   const mutation = useMutation({
     mutationFn: async (data: z.infer<typeof formSchema>) => {
+      // Create a full EmailData object with all required fields
       const emailData: EmailData = {
-        ...data,
+        namn: data.namn,
+        telefon: data.telefon,
+        epost: data.epost,
+        soker: data.soker,
+        besvarstid: data.besvarstid,
+        meddelande: data.meddelande || "",
         recipient: recipient,
         subject: subject,
         replyTo: data.epost,

@@ -35,7 +35,12 @@ const EvaHelde = () => {
             <p className="text-gray-600 mb-6">
               Fyll i formuläret nedan för att boka en tid hos Eva Helde. Vi återkommer till dig så snart som möjligt för att bekräfta din bokning.
             </p>
-            <BookingForm />
+            <BookingForm 
+              recipient="eva.helde@rekg.se" 
+              subject="Bokningsförfrågan från hemsidan" 
+              fromName="Rehabkliniken i Gävle"
+              edgeFunctionName="send-email-resend"
+            />
           </div>
           
           {/* Cancellation Info */}
