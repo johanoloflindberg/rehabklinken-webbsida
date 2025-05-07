@@ -32,25 +32,33 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
 
     console.log("Calling Resend API with payload:", payload);
 
-    // Send the email using fetch to the Resend API
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer re_XbMzSg8U_CHmBbcPb2ftJgDWu6ugCudZp` // Using the provided key
-      },
-      body: JSON.stringify(payload)
-    });
+    // Use try-catch specifically for the fetch operation
+    try {
+      // Send the email using fetch to the Resend API
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer re_XbMzSg8U_CHmBbcPb2ftJgDWu6ugCudZp` // Using the provided key
+        },
+        body: JSON.stringify(payload)
+      });
 
-    const responseData = await response.json();
-    console.log("Resend API response:", responseData);
+      // Parse the response as JSON
+      const responseData = await response.json();
+      console.log("Resend API response:", responseData);
 
-    if (!response.ok) {
-      throw new Error(`Failed to send email: ${responseData.message || response.statusText}`);
+      // Check if the response was not successful
+      if (!response.ok) {
+        throw new Error(`Failed to send email: ${responseData.message || response.statusText}`);
+      }
+
+      console.log("Email sent successfully to:", data.recipient);
+      return Promise.resolve();
+    } catch (fetchError) {
+      console.error("Fetch operation failed:", fetchError);
+      throw new Error(`Network error when sending email: ${fetchError instanceof Error ? fetchError.message : 'Unknown network error'}`);
     }
-
-    console.log("Email sent successfully to:", data.recipient);
-    return Promise.resolve();
   } catch (error) {
     console.error("Error sending email:", error);
     return Promise.reject(new Error(`Failed to send email: ${error instanceof Error ? error.message : 'Unknown error'}`));

@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 const formSchema = z.object({
   namn: z.string().min(2, { message: "Ange ett giltigt namn med minst 2 bokstäver." }),
@@ -37,6 +39,7 @@ export interface BookingFormProps {
 const BookingForm = ({ recipient, subject, fromName }: BookingFormProps) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,6 +55,8 @@ const BookingForm = ({ recipient, subject, fromName }: BookingFormProps) => {
 
   const mutation = useMutation({
     mutationFn: async (data: z.infer<typeof formSchema>) => {
+      setErrorMessage(null); // Clear any previous errors
+      
       // Create a full EmailData object with all required fields
       const emailData: EmailData = {
         namn: data.namn,
@@ -77,6 +82,10 @@ const BookingForm = ({ recipient, subject, fromName }: BookingFormProps) => {
     },
     onError: (error: Error) => {
       console.error("Mutation error:", error);
+      
+      // Set specific error message
+      setErrorMessage("Det gick inte att skicka meddelandet. Tekniskt fel: " + error.message);
+      
       toast({
         variant: "destructive",
         title: "Något gick fel",
@@ -97,6 +106,13 @@ const BookingForm = ({ recipient, subject, fromName }: BookingFormProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        {errorMessage && (
+          <Alert variant="destructive" className="mb-4">
+            <AlertTitle>Ett fel uppstod</AlertTitle>
+            <AlertDescription>{errorMessage}</AlertDescription>
+          </Alert>
+        )}
+        
         <FormField
           control={form.control}
           name="namn"
