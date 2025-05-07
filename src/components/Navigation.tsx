@@ -73,7 +73,7 @@ const Navigation = () => {
               <Link 
                 to="/om-oss" 
                 className={`font-medium transition-colors inline-flex items-center ${
-                  isActive("/om-oss") || isActive("/eva-helde")
+                  isActive("/om-oss") || isActive("/eva-helde") || isActive("/petra-nasselqvist")
                     ? "text-rehab-red" 
                     : "text-gray-700 hover:text-rehab-red"
                 }`}
@@ -94,6 +94,12 @@ const Navigation = () => {
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-rehab-red"
                   >
                     Läkare Eva Helde
+                  </Link>
+                  <Link
+                    to="/petra-nasselqvist"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-rehab-red"
+                  >
+                    Petra Nässelqvist
                   </Link>
                 </div>
               </div>
@@ -172,6 +178,17 @@ const Navigation = () => {
                     onClick={toggleMenu}
                   >
                     Läkare Eva Helde
+                  </Link>
+                  <Link
+                    to="/petra-nasselqvist"
+                    className={`block text-base font-medium transition-colors ${
+                      isActive("/petra-nasselqvist") 
+                        ? "text-rehab-red" 
+                        : "text-gray-600 hover:text-rehab-red"
+                    }`}
+                    onClick={toggleMenu}
+                  >
+                    Petra Nässelqvist
                   </Link>
                 </div>
               </div>

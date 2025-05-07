@@ -9,6 +9,7 @@ import Behandlingar from "./pages/Behandlingar";
 import OmOss from "./pages/OmOss";
 import Kontakt from "./pages/Kontakt";
 import EvaHelde from "./pages/EvaHelde";
+import PetraNasselqvist from "./pages/PetraNasselqvist";
 import { createClient } from "@supabase/supabase-js";
 
 // Initialize Supabase
@@ -40,6 +41,7 @@ const App = () => {
             <Route path="/om-oss" element={<OmOss />} />
             <Route path="/kontakt" element={<Kontakt />} />
             <Route path="/eva-helde" element={<EvaHelde />} />
+            <Route path="/petra-nasselqvist" element={<PetraNasselqvist />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
